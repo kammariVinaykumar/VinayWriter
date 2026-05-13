@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinay Writes | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .page { display: none; }
+        .active { display: block !important; }
+    </style>
+</head>
+<body class="bg-black text-white font-sans">
+
+    <!-- HOME PAGE -->
+    <div id="home-page" class="page active">
+        <section class="min-h-screen flex flex-col justify-center items-center text-center p-6 bg-gradient-to-b from-black via-zinc-900 to-black">
+            <h1 class="text-6xl font-bold text-red-500 mb-4">Vinay Writes</h1>
+            <p class="text-xl text-zinc-400">Cinematic Screenplays & Emotional Stories</p>
+            <div class="mt-10 flex gap-4">
+                <a href="#story-grid-section" class="bg-red-600 px-6 py-3 rounded-xl font-bold">Explore Stories</a>
+            </div>
+        </section>
+
+        <section id="story-grid-section" class="py-20 px-10">
+            <h2 class="text-4xl font-bold text-red-500 text-center mb-10">Featured Stories</h2>
+            <div id="story-grid" class="grid md:grid-cols-3 gap-8">
+                <!-- Stories will appear here -->
+            </div>
+        </section>
+
+        <!-- WRITING FORM -->
+        <section id="admin-section" class="py-20 px-10 bg-zinc-950">
+            <h2 class="text-3xl font-bold text-red-500 text-center mb-8">Post a New Story Concept</h2>
+            <form id="story-form" class="max-w-xl mx-auto space-y-4 bg-zinc-900 p-8 rounded-3xl border border-zinc-800">
+                <input type="text" id="title" placeholder="Story Title (e.g. Maya)" class="w-full p-3 rounded bg-zinc-800 text-white" required>
+                <input type="text" id="imgUrl" placeholder="Image Link (Poster URL)" class="w-full p-3 rounded bg-zinc-800 text-white">
+                <textarea id="desc" placeholder="Short Summary" class="w-full p-3 rounded bg-zinc-800 text-white"></textarea>
+                <textarea id="fullStory" placeholder="Write full screenplay or concept here..." class="w-full p-3 h-40 rounded bg-zinc-800 text-white"></textarea>
+                <button type="submit" class="w-full bg-green-600 py-3 rounded-xl font-bold hover:bg-green-700 transition">Submit Story</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- DETAILS PAGE (This opens when you click a story) -->
+    <div id="details-page" class="page p-10 bg-black min-h-screen">
+        <button onclick="showHome()" class="text-red-500 mb-10 font-bold text-lg">← Back to Portfolio</button>
+        <div id="details-content" class="max-w-4xl mx-auto"></div>
+    </div>
+
+    <script>
+        // Initializing with your projects
+        let stories = [
+            { 
+                title: "The Cursed Camera", 
+                desc: "A horror thriller about a camera that captures the future.", 
+                img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800", 
+                story: "A vintage camera shows the future death of anyone it photographs..." 
+            },
+            { 
+                title: "Maya", 
+                desc: "A revenge-themed script with cinematic twists.", 
+                img: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800", 
+                story: "Scene 2: Maya initiates her master plan for revenge..." 
+            },
+            { 
+                title: "The Place Loop", 
+                desc: "A technical short film concept about a repeating loop.", 
+                img: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=800", 
+                story: "A character finds themselves trapped in a location that repeats every 5 minutes..." 
+            }
+        ];
+
+        function renderStories() {
+            const grid = document.getElementById('story-grid');
+            grid.innerHTML = stories.map((s, i) => `
+                <div class="bg-zinc-900 p-5 rounded-2xl shadow-xl hover:scale-105 transition duration-300">
+                    <img src="${s.img}" class="h-48 w-full object-cover rounded-xl mb-4 border border-zinc-800">
+                    <h3 class="text-2xl font-bold mb-2">${s.title}</h3>
+                    <p class="text-zinc-400 mb-4">${s.desc}</p>
+                    <button onclick="showDetails(${i})" class="w-full bg-red-600 py-2 rounded-lg font-bold">Open Concept</button>
+                </div>
+            `).join('');
+        }
+
+        function showDetails(index) {
+            const s = stories[index];
+            document.getElementById('home-page').classList.remove('active');
+            document.getElementById('details-page').classList.add('active');
+            document.getElementById('details-content').innerHTML = `
+                <img src="${s.img}" class="w-full h-96 object-cover rounded-3xl mb-8 shadow-2xl">
+                <h1 class="text-5xl font-bold text-red-500 mb-4">${s.title}</h1>
+                <div class="h-1 w-20 bg-red-600 mb-8"></div>
+                <p class="text-zinc-300 text-xl leading-relaxed whitespace-pre-line">${s.story}</p>
+            `;
+            window.scrollTo(0,0);
+        }
+
+        function showHome() {
+            document.getElementById('details-page').classList.remove('active');
+            document.getElementById('home-page').classList.add('active');
+        }
+
+        document.getElementById('story-form').onsubmit = function(e) {
+            e.preventDefault();
+            const newStory = {
+                title: document.getElementById('title').value,
+                img: document.getElementById('imgUrl').value || 'https://via.placeholder.com/800x400/222/fff?text=Cinematic+Poster',
+                desc: document.getElementById('desc').value,
+                story: document.getElementById('fullStory').value
+            };
+            stories.push(newStory);
+            renderStories();
+            this.reset();
+            alert("Story Added to Website!");
+            document.getElementById('story-grid-section').scrollIntoView();
+        };
+
+        renderStories();
+    </script>
+</body>
+</html>
