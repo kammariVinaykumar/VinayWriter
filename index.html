@@ -3,118 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vinay Writes | Creative Portfolio</title>
+    <title>Vinay Writes | Telugu Screenplay Writer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .page { display: none; }
         .active { display: block !important; }
         .admin-only { display: none; }
         body.admin-mode .admin-only { display: block; }
-        body.admin-mode .user-only { display: none; }
+        body.admin-mode .user-view-elements { display: none; }
     </style>
 </head>
-<body class="bg-black text-white font-sans">
+<body class="bg-black text-white font-sans selection:bg-red-500">
 
     <!-- NAVIGATION -->
     <nav class="p-5 flex justify-between items-center bg-zinc-900 sticky top-0 z-50 border-b border-zinc-800">
         <h1 class="text-2xl font-bold text-red-500 cursor-pointer" onclick="showHome()">Vinay Writes</h1>
-        <div class="flex gap-4">
-            <button id="view-toggle" onclick="toggleAdmin()" class="bg-red-600 px-4 py-2 rounded-full text-sm font-bold shadow-lg">Admin Login</button>
-        </div>
+        <button id="view-toggle" onclick="toggleAdmin()" class="bg-zinc-800 px-4 py-2 rounded-full text-sm font-bold border border-zinc-700">Admin Login</button>
     </nav>
 
-    <!-- USER VIEW: CATEGORIES -->
+    <!-- USER VIEW -->
     <div id="home-page" class="page active">
-        <section class="py-10 text-center bg-gradient-to-b from-zinc-900 to-black">
-            <h1 class="text-5xl font-extrabold text-red-500 mb-2">Creative Portfolio</h1>
-            <p class="text-zinc-400">Cinematic Scripts & Story Discussions</p>
-            
-            <!-- TOPICS FILTER -->
-            <div class="mt-8 flex flex-wrap justify-center gap-3 px-4">
-                <button onclick="filterStories('All')" class="bg-zinc-800 hover:bg-red-600 px-5 py-2 rounded-full transition">All</button>
-                <button onclick="filterStories('Movie Scenes')" class="bg-zinc-800 hover:bg-red-600 px-5 py-2 rounded-full transition">Movie Scenes</button>
-                <button onclick="filterStories('Scenes to Screenplay')" class="bg-zinc-800 hover:bg-red-600 px-5 py-2 rounded-full transition">Scenes to Screenplay</button>
-                <button onclick="filterStories('Serial Contents')" class="bg-zinc-800 hover:bg-red-600 px-5 py-2 rounded-full transition">Serial Contents</button>
-                <button onclick="filterStories('Story Discussion')" class="bg-zinc-800 hover:bg-red-600 px-5 py-2 rounded-full transition">Story Discussion</button>
-                <button onclick="filterStories('Short Film Stories')" class="bg-zinc-800 hover:bg-red-600 px-5 py-2 rounded-full transition">Short Film Stories</button>
+        
+        <!-- HERO SECTION (USER ONLY) -->
+        <section class="user-view-elements min-h-[70vh] flex flex-col justify-center items-center text-center p-6 bg-gradient-to-b from-zinc-900 to-black">
+            <h2 class="text-red-500 font-bold tracking-[0.2em] mb-4 uppercase">Telugu Screenplay Writer</h2>
+            <h1 class="text-6xl md:text-8xl font-black mb-6">Stories That <br><span class="text-red-600 italic">Hit Different.</span></h1>
+            <p class="max-w-2xl text-zinc-400 text-lg md:text-xl leading-relaxed">
+                Emotional narratives. Mind-bending twists. Cinematic scenes built for the screen — short films, serials, and full screenplays in Telugu.
+            </p>
+            <div class="mt-10 flex gap-4">
+                <a href="#portfolio" class="bg-red-600 px-8 py-3 rounded-full font-bold hover:scale-105 transition">View My Work</a>
+                <a href="#contact" class="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-zinc-200 transition">Contact Me</a>
             </div>
         </section>
 
-        <!-- STORIES GRID -->
-        <section class="py-10 px-6 max-w-7xl mx-auto">
-            <div id="story-grid" class="grid md:grid-cols-3 gap-8">
-                <!-- Stories will be injected here -->
+        <!-- ABOUT SECTION (USER ONLY) -->
+        <section class="user-view-elements py-20 px-6 bg-zinc-950">
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-red-500 font-bold mb-2">About Kammari Vinay Kumar</h3>
+                    <p class="text-2xl font-bold mb-4 leading-snug text-zinc-200">Aspiring filmmaker and screenplay writer with a deep passion for emotional storytelling.</p>
+                    <p class="text-zinc-400 leading-relaxed">From dream-layer thrillers to raw friendship dramas, every story is crafted with cinematic purpose — designed to move, disturb, and linger long after the screen goes dark.</p>
+                </div>
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800">
+                        <h4 class="text-red-500 font-bold mb-2 italic">More Ideas & Concepts</h4>
+                        <ul class="text-sm text-zinc-400 space-y-3">
+                            <li>• "A father receives phone calls from his dead son every midnight..."</li>
+                            <li>• "A man relives the same accident repeatedly until he saves a stranger..."</li>
+                            <li>• "A sound engineer hears a hidden murder confession inside white noise..."</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- ADMIN FORM -->
-        <section class="admin-only py-20 px-6 bg-zinc-950 border-t-2 border-red-600 mt-20">
-            <div class="max-w-2xl mx-auto">
-                <h2 class="text-3xl font-bold text-red-500 text-center mb-8">Admin: Post Content</h2>
-                <form id="story-form" class="space-y-4 bg-zinc-900 p-8 rounded-3xl border border-zinc-800">
-                    <input type="text" id="title" placeholder="Story Title" class="w-full p-3 rounded bg-zinc-800" required>
-                    
-                    <select id="category" class="w-full p-3 rounded bg-zinc-800 text-white" required>
-                        <option value="">Select Topic (Category)</option>
+        <!-- SERVICES & STRENGTHS (USER ONLY) -->
+        <section class="user-view-elements py-20 px-6 border-y border-zinc-900">
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-20">
+                <div>
+                    <h3 class="text-3xl font-bold mb-8">Writing Services</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 bg-zinc-900 rounded-xl border border-zinc-800 text-center font-bold">Short Film Stories</div>
+                        <div class="p-4 bg-zinc-900 rounded-xl border border-zinc-800 text-center font-bold">Movie Scene Writing</div>
+                        <div class="p-4 bg-zinc-900 rounded-xl border border-zinc-800 text-center font-bold">Serial Development</div>
+                        <div class="p-4 bg-zinc-900 rounded-xl border border-zinc-800 text-center font-bold">Dialogue Writing</div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-3xl font-bold mb-8 text-red-500 italic">Why Work With Me?</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-lg text-zinc-200">Cinematic Vision</h4>
+                            <p class="text-sm text-zinc-500 leading-relaxed">Scenes are crafted with a filmmaker's eye — pacing, tension, visual beats, and silence are all intentional.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg text-zinc-200">Telugu Storytelling</h4>
+                            <p class="text-sm text-zinc-500 leading-relaxed">Rooted in Telugu cinema culture, writing that resonates with local audiences while maintaining universal themes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO SECTION -->
+        <section id="portfolio" class="py-20 px-6">
+            <div class="max-w-7xl mx-auto">
+                <!-- CATEGORY FILTER (USER ONLY) -->
+                <div class="user-view-elements flex flex-wrap justify-center gap-3 mb-12">
+                    <button onclick="filterStories('All')" class="bg-zinc-800 hover:bg-red-600 px-6 py-2 rounded-full font-bold transition">All</button>
+                    <button onclick="filterStories('Movie Scenes')" class="bg-zinc-800 hover:bg-red-600 px-6 py-2 rounded-full font-bold transition">Movie Scenes</button>
+                    <button onclick="filterStories('Short Film Stories')" class="bg-zinc-800 hover:bg-red-600 px-6 py-2 rounded-full font-bold transition">Short Films</button>
+                    <button onclick="filterStories('Story Discussion')" class="bg-zinc-800 hover:bg-red-600 px-6 py-2 rounded-full font-bold transition">Discussions</button>
+                </div>
+
+                <div id="story-grid" class="grid md:grid-cols-3 gap-8"></div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION (USER ONLY) -->
+        <section id="contact" class="user-view-elements py-20 px-6 bg-red-600 text-white text-center">
+            <h2 class="text-4xl md:text-6xl font-black mb-6 uppercase">Let's Create Together</h2>
+            <p class="max-w-xl mx-auto mb-10 font-medium">Have a story idea? Need a screenplay? Reach out — I'd love to collaborate.</p>
+            <div class="flex flex-col md:flex-row justify-center gap-6">
+                <a href="mailto:kammarivinaykumar981@gmail.com" class="bg-black px-10 py-4 rounded-2xl font-bold flex flex-col items-center">
+                    <span class="text-xs text-zinc-500 uppercase">Email Me</span>
+                    <span>kammarivinaykumar981@gmail.com</span>
+                </a>
+                <a href="https://wa.me/917981587505" target="_blank" class="bg-black px-10 py-4 rounded-2xl font-bold flex flex-col items-center">
+                    <span class="text-xs text-zinc-500 uppercase">WhatsApp</span>
+                    <span>+91 79815 87505</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- ADMIN POST FORM (ADMIN ONLY) -->
+        <section class="admin-only py-20 px-6 bg-zinc-950">
+            <div class="max-w-2xl mx-auto bg-zinc-900 p-10 rounded-[3rem] border border-zinc-800">
+                <h2 class="text-3xl font-bold text-red-500 mb-8">Admin: Post New Story</h2>
+                <form id="story-form" class="space-y-5">
+                    <input type="text" id="title" placeholder="Story Title" class="w-full p-4 rounded-2xl bg-zinc-800 border border-zinc-700 focus:border-red-600 outline-none" required>
+                    <select id="category" class="w-full p-4 rounded-2xl bg-zinc-800 border border-zinc-700 outline-none" required>
+                        <option value="">Select Category</option>
                         <option value="Movie Scenes">Movie Scenes</option>
-                        <option value="Scenes to Screenplay">Scenes to Screenplay</option>
-                        <option value="Serial Contents">Serial Contents</option>
-                        <option value="Story Discussion">Story Discussion</option>
                         <option value="Short Film Stories">Short Film Stories</option>
+                        <option value="Story Discussion">Story Discussion</option>
+                        <option value="Serial Contents">Serial Contents</option>
                     </select>
-
-                    <input type="text" id="imgUrl" placeholder="Poster Image Link (URL)" class="w-full p-3 rounded bg-zinc-800">
-                    <textarea id="desc" placeholder="Short Summary (2 Lines)" class="w-full p-3 rounded bg-zinc-800"></textarea>
-                    <textarea id="fullStory" placeholder="Write your script or discussion here..." class="w-full p-3 h-60 rounded bg-zinc-800"></textarea>
-                    
-                    <button type="submit" class="w-full bg-green-600 py-3 rounded-xl font-bold hover:bg-green-700 transition">Submit to User View</button>
+                    <input type="text" id="imgUrl" placeholder="Poster Image URL" class="w-full p-4 rounded-2xl bg-zinc-800 border border-zinc-700 outline-none">
+                    <textarea id="desc" placeholder="Brief Summary" class="w-full p-4 rounded-2xl bg-zinc-800 border border-zinc-700 outline-none"></textarea>
+                    <textarea id="fullStory" placeholder="The Script Content..." class="w-full p-4 h-64 rounded-2xl bg-zinc-800 border border-zinc-700 outline-none"></textarea>
+                    <button type="submit" class="w-full bg-red-600 py-4 rounded-2xl font-bold text-lg shadow-xl shadow-red-900/20">Publish Story</button>
                 </form>
             </div>
         </section>
     </div>
 
-    <!-- STORY DETAILS PAGE -->
+    <!-- DETAILS PAGE -->
     <div id="details-page" class="page p-6 md:p-20 bg-black min-h-screen">
-        <button onclick="showHome()" class="text-red-500 mb-10 font-bold flex items-center gap-2">← Back to Home</button>
+        <button onclick="showHome()" class="text-red-500 mb-10 font-bold">← BACK TO PORTFOLIO</button>
         <div id="details-content" class="max-w-4xl mx-auto"></div>
-        
-        <!-- INTERACTION BAR -->
-        <div class="max-w-4xl mx-auto mt-10 flex gap-6 border-y border-zinc-800 py-4 mb-10">
-            <button onclick="alert('Liked!')" class="flex items-center gap-2 hover:text-red-500">❤️ Like</button>
-            <button onclick="alert('Shared!')" class="flex items-center gap-2 hover:text-blue-500">🔗 Share</button>
-            <a id="wa-contact" href="#" target="_blank" class="flex items-center gap-2 hover:text-green-500">📱 WhatsApp Contact</a>
-        </div>
-
-        <!-- COMMENTS -->
-        <div class="max-w-4xl mx-auto">
-            <h3 class="text-2xl font-bold mb-6 text-red-500">Comments</h3>
-            <div id="comment-list" class="space-y-4 mb-8"></div>
-            <div class="bg-zinc-900 p-6 rounded-2xl">
-                <textarea id="user-comment" placeholder="Write a comment..." class="w-full p-3 rounded bg-zinc-800 mb-4 h-24"></textarea>
-                <button onclick="postComment()" class="bg-red-600 px-8 py-2 rounded-lg font-bold">Post</button>
-            </div>
+        <div class="max-w-4xl mx-auto mt-20 border-t border-zinc-800 pt-10">
+            <div id="comment-list" class="space-y-4 mb-10"></div>
+            <textarea id="user-comment" placeholder="Leave a feedback..." class="w-full p-4 rounded-2xl bg-zinc-900 border border-zinc-800 mb-4"></textarea>
+            <button onclick="postComment()" class="bg-red-600 px-10 py-3 rounded-xl font-bold">Post Comment</button>
         </div>
     </div>
 
     <script>
         let isAdmin = false;
-        let stories = JSON.parse(localStorage.getItem('vinay_pro_stories')) || [];
-        let comments = JSON.parse(localStorage.getItem('vinay_pro_comments')) || {};
+        let stories = JSON.parse(localStorage.getItem('vinay_v3_stories')) || [];
+        let comments = JSON.parse(localStorage.getItem('vinay_v3_comments')) || {};
 
         function toggleAdmin() {
             if(!isAdmin) {
-                const pass = prompt("Enter Admin Password:");
-                if(pass === "vinay123") {
+                if(prompt("Admin Password:") === "vinay123") {
                     isAdmin = true;
                     document.body.classList.add('admin-mode');
-                    document.getElementById('view-toggle').innerText = "Switch to User View";
-                    document.getElementById('view-toggle').classList.replace('bg-red-600', 'bg-blue-600');
-                } else { alert("Access Denied!"); }
+                    document.getElementById('view-toggle').innerText = "Logout Admin";
+                }
             } else {
                 isAdmin = false;
                 document.body.classList.remove('admin-mode');
                 document.getElementById('view-toggle').innerText = "Admin Login";
-                document.getElementById('view-toggle').classList.replace('bg-blue-600', 'bg-red-600');
             }
             renderStories();
         }
@@ -122,37 +173,32 @@
         function renderStories(filter = 'All') {
             const grid = document.getElementById('story-grid');
             const filtered = filter === 'All' ? stories : stories.filter(s => s.category === filter);
-            
             grid.innerHTML = filtered.map((s, i) => `
-                <div class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-red-500 transition-all duration-300 relative shadow-2xl">
-                    ${isAdmin ? `<button onclick="deleteStory(${i})" class="absolute top-4 right-4 bg-red-600 p-2 rounded-full z-10">✕</button>` : ''}
-                    <img src="${s.img || 'https://via.placeholder.com/600x400/111/fff?text=Vinay+Writes'}" class="w-full h-56 object-cover opacity-80 hover:opacity-100 transition">
-                    <div class="p-6">
-                        <span class="text-xs font-bold text-red-500 uppercase tracking-widest">${s.category}</span>
-                        <h3 class="text-2xl font-bold mt-2 mb-3">${s.title}</h3>
-                        <p class="text-zinc-400 text-sm mb-6">${s.desc}</p>
-                        <button onclick="showDetails(${stories.indexOf(s)})" class="w-full bg-white text-black py-3 rounded-xl font-bold hover:bg-red-500 hover:text-white transition">Read Story</button>
+                <div class="group bg-zinc-900 border border-zinc-800 rounded-[2rem] overflow-hidden hover:border-red-600 transition-all duration-500 relative">
+                    ${isAdmin ? `<button onclick="deleteStory(${i})" class="absolute top-4 right-4 bg-red-600 p-2 rounded-full z-10 text-[10px]">DELETE</button>` : ''}
+                    <div class="h-64 overflow-hidden">
+                        <img src="${s.img || 'https://via.placeholder.com/600x400/111/fff?text=Cinematic+Story'}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-70">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-red-500 text-xs font-black uppercase tracking-widest">${s.category}</span>
+                        <h3 class="text-2xl font-extrabold mt-2 mb-4">${s.title}</h3>
+                        <p class="text-zinc-500 text-sm mb-6 line-clamp-2">${s.desc}</p>
+                        <button onclick="showDetails(${stories.indexOf(s)})" class="w-full border border-zinc-700 py-3 rounded-xl font-bold group-hover:bg-red-600 group-hover:border-red-600 transition">Open Concept</button>
                     </div>
                 </div>
             `).join('');
         }
 
-        function filterStories(cat) {
-            renderStories(cat);
-            window.scrollTo({top: 400, behavior: 'smooth'});
-        }
+        function filterStories(cat) { renderStories(cat); }
 
         function showDetails(index) {
             const s = stories[index];
             document.getElementById('home-page').classList.remove('active');
             document.getElementById('details-page').classList.add('active');
-            document.getElementById('wa-contact').href = `https://wa.me/919999999999?text=Hi Vinay, I read your story: ${s.title}`; // Mee Number pettandi
-            
             document.getElementById('details-content').innerHTML = `
-                <span class="bg-red-600 px-3 py-1 rounded text-xs font-bold">${s.category}</span>
-                <h1 class="text-5xl font-extrabold mt-4 mb-8 leading-tight">${s.title}</h1>
-                <img src="${s.img}" class="w-full h-auto rounded-3xl mb-10 shadow-2xl border border-zinc-800">
-                <div class="text-zinc-300 text-xl leading-relaxed whitespace-pre-line">${s.story}</div>
+                <span class="text-red-500 font-black tracking-widest uppercase text-sm">${s.category}</span>
+                <h1 class="text-5xl md:text-7xl font-black mt-4 mb-10 leading-tight">${s.title}</h1>
+                <div class="prose prose-invert max-w-none text-zinc-300 text-xl leading-relaxed whitespace-pre-line">${s.story}</div>
             `;
             renderComments(s.title);
             window.scrollTo(0,0);
@@ -165,45 +211,42 @@
 
         document.getElementById('story-form').onsubmit = function(e) {
             e.preventDefault();
-            const newStory = {
+            stories.push({
                 title: document.getElementById('title').value,
                 category: document.getElementById('category').value,
-                img: document.getElementById('imgUrl').value || 'https://via.placeholder.com/800x500/222/fff?text=Cinematic+Scene',
+                img: document.getElementById('imgUrl').value,
                 desc: document.getElementById('desc').value,
                 story: document.getElementById('fullStory').value
-            };
-            stories.push(newStory);
-            localStorage.setItem('vinay_pro_stories', JSON.stringify(stories));
+            });
+            localStorage.setItem('vinay_v3_stories', JSON.stringify(stories));
             renderStories();
             this.reset();
-            alert("Success! Story published to " + newStory.category);
         };
 
         function deleteStory(index) {
-            if(confirm("Delete this story permanently?")) {
+            if(confirm("Delete?")) {
                 stories.splice(index, 1);
-                localStorage.setItem('vinay_pro_stories', JSON.stringify(stories));
+                localStorage.setItem('vinay_v3_stories', JSON.stringify(stories));
                 renderStories();
             }
         }
 
         function postComment() {
             const text = document.getElementById('user-comment').value;
-            const currentTitle = document.querySelector('#details-content h1').innerText;
-            if(!comments[currentTitle]) comments[currentTitle] = [];
-            comments[currentTitle].push({ text, date: new Date().toLocaleDateString() });
-            localStorage.setItem('vinay_pro_comments', JSON.stringify(comments));
-            renderComments(currentTitle);
+            const title = document.querySelector('#details-content h1').innerText;
+            if(!comments[title]) comments[title] = [];
+            comments[title].push({ text, date: new Date().toLocaleDateString() });
+            localStorage.setItem('vinay_v3_comments', JSON.stringify(comments));
+            renderComments(title);
             document.getElementById('user-comment').value = "";
         }
 
         function renderComments(title) {
             const list = document.getElementById('comment-list');
-            const storyComments = comments[title] || [];
-            list.innerHTML = storyComments.map(c => `
-                <div class="bg-zinc-800 p-4 rounded-xl border-l-4 border-red-500">
-                    <p class="text-zinc-200">${c.text}</p>
-                    <span class="text-[10px] text-zinc-500 uppercase font-bold">${c.date}</span>
+            list.innerHTML = (comments[title] || []).map(c => `
+                <div class="bg-zinc-900 p-4 rounded-xl border-l-2 border-red-600">
+                    <p class="text-zinc-300">${c.text}</p>
+                    <small class="text-zinc-600">${c.date}</small>
                 </div>
             `).join('');
         }
