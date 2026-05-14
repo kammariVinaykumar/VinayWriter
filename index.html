@@ -13,6 +13,8 @@
         body.admin-mode .admin-section { display: block !important; }
         .writer-reply { border-left: 4px solid #ef4444; background: #18181b; padding: 15px; border-radius: 12px; margin-top: 10px; margin-left: 20px; }
         .notification-badge { position: absolute; top: 10px; left: 10px; background: #ef4444; color: white; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 900; z-index: 20; }
+        #comment-section { display: none; }
+        #comment-section.show { display: block !important; }
     </style>
 </head>
 <body class="bg-black text-white font-sans selection:bg-red-500">
@@ -26,7 +28,7 @@
         <!-- HERO SECTION -->
         <header class="user-view-only pt-32 pb-20 px-6 text-center bg-gradient-to-b from-zinc-900 to-black">
             <h2 class="text-red-500 font-bold tracking-[0.3em] mb-6 uppercase text-sm">Telugu Screenplay Writer</h2>
-            <h1 class="text-6xl md:text-8xl font-black mb-8 leading-tight uppercase italic text-white">Stories That <br><span class="text-red-600">Hit Different.</span></h1>
+            <h1 class="text-6xl md:text-8xl font-black mb-8 leading-tight uppercase italic">Stories That <br><span class="text-red-600">Hit Different.</span></h1>
             
             <div class="flex flex-col items-center gap-6 mt-10">
                 <h3 class="text-2xl font-black uppercase tracking-widest italic text-zinc-400">Read My Stories</h3>
@@ -38,7 +40,7 @@
             </div>
         </header>
 
-        <!-- STORIES PORTFOLIO -->
+        <!-- STORIES GRID -->
         <section id="portfolio" class="user-view-only py-20 px-6 bg-zinc-950">
             <div id="story-grid" class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8"></div>
         </section>
@@ -48,12 +50,12 @@
             <div class="max-w-5xl mx-auto text-center">
                 <h3 class="text-5xl md:text-7xl font-black mb-8 italic uppercase text-white">Let's Collaborate.</h3>
                 <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto text-white">
-                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black shadow-2xl">
-                        <span class="text-orange-500 font-black uppercase text-[10px] mb-3 block tracking-widest">Email Address</span>
+                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black">
+                        <span class="text-orange-500 font-black uppercase text-[10px] mb-3 block">Email Address</span>
                         <a href="mailto:kammarivinaykumar981@gmail.com" class="text-lg md:text-xl font-bold">kammarivinaykumar981@gmail.com</a>
                     </div>
-                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black shadow-2xl">
-                        <span class="text-green-500 font-black uppercase text-[10px] mb-3 block tracking-widest">WhatsApp Me</span>
+                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black">
+                        <span class="text-green-500 font-black uppercase text-[10px] mb-3 block">WhatsApp Me</span>
                         <a href="https://wa.me/917981587505" target="_blank" class="text-2xl md:text-3xl font-bold">+91 79815 87505</a>
                     </div>
                 </div>
@@ -75,22 +77,21 @@
                     </select>
                     <textarea id="fullStory" placeholder="Full script content..." class="w-full p-5 h-80 rounded-2xl bg-zinc-900 border border-zinc-800 text-white outline-none"></textarea>
                     <button type="submit" id="submit-btn" class="w-full bg-red-600 py-5 rounded-2xl font-black text-xl hover:bg-red-700 transition uppercase tracking-widest text-white">Publish Story</button>
-                    <button type="button" id="cancel-edit" onclick="resetForm()" class="hidden w-full bg-zinc-800 py-3 rounded-xl font-bold mt-2 text-white">Cancel Edit</button>
                 </form>
             </div>
 
             <div class="max-w-7xl mx-auto space-y-20 text-white">
-                <div>
-                    <h3 class="text-3xl font-black text-red-500 mb-8 border-b-4 border-red-600 pb-2 uppercase italic text-white">Short Film Stories</h3>
-                    <div id="admin-shortfilm" class="grid md:grid-cols-3 gap-8 text-white"></div>
+                <div id="admin-sf-container">
+                    <h3 class="text-3xl font-black text-red-500 mb-8 border-b-4 border-red-600 pb-2 uppercase italic">Short Film Stories</h3>
+                    <div id="admin-shortfilm" class="grid md:grid-cols-3 gap-8"></div>
                 </div>
-                <div>
-                    <h3 class="text-3xl font-black text-blue-500 mb-8 border-b-4 border-blue-600 pb-2 uppercase italic text-white">Movie Scenes</h3>
-                    <div id="admin-moviescenes" class="grid md:grid-cols-3 gap-8 text-white"></div>
+                <div id="admin-ms-container">
+                    <h3 class="text-3xl font-black text-blue-500 mb-8 border-b-4 border-blue-600 pb-2 uppercase italic">Movie Scenes</h3>
+                    <div id="admin-moviescenes" class="grid md:grid-cols-3 gap-8"></div>
                 </div>
-                <div>
-                    <h3 class="text-3xl font-black text-green-500 mb-8 border-b-4 border-green-600 pb-2 uppercase italic text-white">Serial Content</h3>
-                    <div id="admin-serial" class="grid md:grid-cols-3 gap-8 text-white"></div>
+                <div id="admin-sc-container">
+                    <h3 class="text-3xl font-black text-green-500 mb-8 border-b-4 border-green-600 pb-2 uppercase italic">Serial Content</h3>
+                    <div id="admin-serial" class="grid md:grid-cols-3 gap-8"></div>
                 </div>
             </div>
         </section>
@@ -102,12 +103,18 @@
         <div id="details-content" class="max-w-4xl mx-auto"></div>
         
         <div class="max-w-4xl mx-auto mt-20 border-t border-zinc-900 pt-10">
-            <h3 class="text-2xl font-bold mb-8 text-red-500 italic uppercase">Feedbacks</h3>
-            <div id="comment-list" class="space-y-6 mb-10"></div>
-            
-            <div class="bg-zinc-900 p-8 rounded-[2rem]">
-                <textarea id="user-comment" placeholder="Leave a feedback..." class="w-full p-5 rounded-2xl bg-zinc-800 border border-zinc-700 mb-4 h-32 outline-none text-white"></textarea>
-                <button onclick="postComment()" class="bg-red-600 px-12 py-4 rounded-2xl font-bold uppercase tracking-widest text-white">Post Feedback</button>
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-2xl font-bold text-red-500 italic uppercase">Feedbacks</h3>
+                <button onclick="toggleComments()" id="view-comments-btn" class="bg-zinc-800 px-6 py-2 rounded-full text-xs font-bold uppercase border border-zinc-700">View Feedbacks</button>
+            </div>
+
+            <div id="comment-section">
+                <div id="comment-list" class="space-y-6 mb-10"></div>
+                
+                <div class="bg-zinc-900 p-8 rounded-[2rem]">
+                    <textarea id="user-comment" placeholder="Leave a feedback..." class="w-full p-5 rounded-2xl bg-zinc-800 border border-zinc-700 mb-4 h-32 outline-none text-white"></textarea>
+                    <button onclick="postComment()" class="bg-red-600 px-12 py-4 rounded-2xl font-bold uppercase tracking-widest text-white">Post Feedback</button>
+                </div>
             </div>
         </div>
     </div>
@@ -172,26 +179,54 @@
             const s = stories[index];
             document.getElementById('home-page').classList.remove('active');
             document.getElementById('details-page').classList.add('active');
+            
+            // Direct ID mapping to ensure text sync
             document.getElementById('details-content').innerHTML = `
-                <h1 id="current-story-title" class="text-5xl md:text-7xl font-black mb-12 uppercase italic underline decoration-red-600 decoration-8 text-white text-white">${s.title}</h1>
+                <h1 id="current-story-title" class="text-5xl md:text-7xl font-black mb-12 uppercase italic underline decoration-red-600 decoration-8 text-white">${s.title}</h1>
                 <div class="text-zinc-300 text-xl leading-relaxed whitespace-pre-line font-medium text-white">${s.story}</div>
             `;
-            renderComments(s.title);
+            
+            // Logic Fix: Load comments immediately in background
+            loadComments(s.title);
+            
+            // If admin, show comments by default
+            if(isAdmin) {
+                document.getElementById('comment-section').classList.add('show');
+                document.getElementById('view-comments-btn').innerText = "Hide Feedbacks";
+            } else {
+                document.getElementById('comment-section').classList.remove('show');
+                document.getElementById('view-comments-btn').innerText = "View Feedbacks";
+            }
+            
             window.scrollTo(0,0);
         }
 
-        function renderComments(title) {
+        function toggleComments() {
+            const section = document.getElementById('comment-section');
+            const btn = document.getElementById('view-comments-btn');
+            section.classList.toggle('show');
+            if(section.classList.contains('show')) {
+                btn.innerText = "Hide Feedbacks";
+            } else {
+                btn.innerText = "View Feedbacks";
+            }
+        }
+
+        function loadComments(title) {
             const list = document.getElementById('comment-list');
             const storyComments = comments[title] || [];
-            list.innerHTML = storyComments.length > 0 
-                ? storyComments.map((c, i) => `
+            
+            if(storyComments.length > 0) {
+                list.innerHTML = storyComments.map((c, i) => `
                     <div class="${c.isWriter ? 'writer-reply border-red-500' : 'bg-zinc-900 p-6 rounded-2xl border border-zinc-800'} relative text-white">
                         ${isAdmin ? `<button onclick="deleteComment('${title}', ${i})" class="absolute top-4 right-4 text-red-500 font-bold text-[10px] uppercase">Remove</button>` : ''}
                         <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest">${c.isWriter ? "Vinay's Reply" : "User Feedback"} — ${c.date}</span>
                         <p class="text-zinc-200 mt-2 text-lg font-medium leading-relaxed">${c.text}</p>
                     </div>
-                `).join('') 
-                : `<p class="text-zinc-600 uppercase text-xs tracking-widest">No feedback yet.</p>`;
+                `).join('');
+            } else {
+                list.innerHTML = `<p class="text-zinc-600 uppercase text-xs tracking-widest">No feedback yet.</p>`;
+            }
         }
 
         function postComment() {
@@ -203,13 +238,12 @@
             comments[title].push({ text, date: new Date().toLocaleDateString(), isWriter: isAdmin });
             localStorage.setItem('vinay_vfinal_comments', JSON.stringify(comments));
             
-            // ADMIN ALERT LOGIC:
-            // Alert will ONLY show if you are in Admin Mode.
+            // Admin notification
             if(isAdmin) {
-                alert("New Feedback Received on: " + title);
+                alert("Reply Posted!");
             }
             
-            renderComments(title);
+            loadComments(title);
             document.getElementById('user-comment').value = "";
             renderStories('All');
         }
@@ -218,10 +252,16 @@
             if(confirm("Remove this feedback?")) {
                 comments[storyTitle].splice(index, 1);
                 localStorage.setItem('vinay_vfinal_comments', JSON.stringify(comments));
-                renderComments(storyTitle);
+                loadComments(storyTitle);
             }
         }
 
+        function showHome() {
+            document.getElementById('details-page').classList.remove('active');
+            document.getElementById('home-page').classList.add('active');
+        }
+
+        // Common Admin Utilities
         function editStory(index) {
             const s = stories[index];
             document.getElementById('edit-index').value = index;
@@ -230,16 +270,7 @@
             document.getElementById('fullStory').value = s.story;
             document.getElementById('form-title').innerText = "Modify Story Content";
             document.getElementById('submit-btn').innerText = "Save Changes";
-            document.getElementById('cancel-edit').classList.remove('hidden');
             window.scrollTo({ top: document.querySelector('.admin-section').offsetTop, behavior: 'smooth' });
-        }
-
-        function resetForm() {
-            document.getElementById('story-form').reset();
-            document.getElementById('edit-index').value = "-1";
-            document.getElementById('form-title').innerText = "Post New Content";
-            document.getElementById('submit-btn').innerText = "Publish Story";
-            document.getElementById('cancel-edit').classList.add('hidden');
         }
 
         function toggleHide(index) {
@@ -256,11 +287,6 @@
             }
         }
 
-        function showHome() {
-            document.getElementById('details-page').classList.remove('active');
-            document.getElementById('home-page').classList.add('active');
-        }
-
         document.getElementById('story-form').onsubmit = function(e) {
             e.preventDefault();
             const index = parseInt(document.getElementById('edit-index').value);
@@ -272,7 +298,7 @@
             };
             if(index === -1) stories.push(newData); else stories[index] = newData;
             localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories));
-            resetForm();
+            document.getElementById('story-form').reset();
             renderStories('All');
         };
 
