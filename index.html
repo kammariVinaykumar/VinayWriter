@@ -39,7 +39,7 @@
             </div>
         </header>
 
-        <!-- SERVICES SECTION -->
+        <!-- EXPERTISE SECTION -->
         <section class="user-view-only py-24 px-6 bg-black border-y border-zinc-900">
             <div class="max-w-6xl mx-auto">
                 <h3 class="text-3xl font-black text-center mb-16 uppercase tracking-widest italic text-zinc-500">My Professional Expertise</h3>
@@ -56,51 +56,50 @@
             </div>
         </section>
 
-        <!-- STORIES PORTFOLIO -->
-        <section id="portfolio" class="py-20 px-6 bg-zinc-950">
+        <!-- STORIES PORTFOLIO (User Only) -->
+        <section id="portfolio" class="user-view-only py-20 px-6 bg-zinc-950">
             <div id="story-grid" class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8"></div>
         </section>
 
-        <!-- CONTACT SECTION -->
+        <!-- CONTACT FOOTER -->
         <footer class="user-view-only py-32 px-6 bg-orange-600 text-white">
             <div class="max-w-5xl mx-auto text-center">
-                <h3 class="text-5xl md:text-7xl font-black mb-8 italic uppercase">Let's Collaborate.</h3>
-                <p class="text-white text-xl font-medium mb-16 italic">Hi, I am a writer. Aspiring filmmaker and screenplay writer with a deep passion for emotional storytelling.</p>
+                <h3 class="text-5xl md:text-7xl font-black mb-8 italic uppercase tracking-tighter">Let's Collaborate.</h3>
+                <p class="text-white text-xl font-medium mb-16 italic opacity-90">Hi, I am a writer. Aspiring filmmaker and screenplay writer with a deep passion for emotional storytelling.</p>
                 <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                     <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black shadow-2xl">
-                        <span class="text-orange-500 font-black uppercase text-xs mb-3 block">Email Address</span>
+                        <span class="text-orange-500 font-black uppercase text-[10px] mb-3 block tracking-widest">Email Address</span>
                         <a href="mailto:kammarivinaykumar981@gmail.com" class="text-lg md:text-xl font-bold">kammarivinaykumar981@gmail.com</a>
                     </div>
                     <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black shadow-2xl">
-                        <span class="text-green-500 font-black uppercase text-xs mb-3 block">WhatsApp Me</span>
+                        <span class="text-green-500 font-black uppercase text-[10px] mb-3 block tracking-widest">WhatsApp Me</span>
                         <a href="https://wa.me/917981587505" target="_blank" class="text-2xl md:text-3xl font-bold">+91 79815 87505</a>
                     </div>
                 </div>
             </div>
         </footer>
 
-        <!-- ADMIN POST FORM & DASHBOARD -->
+        <!-- ADMIN SECTION -->
         <section class="admin-section py-20 px-6 bg-zinc-900 min-h-screen">
-            <div class="max-w-3xl mx-auto bg-black p-10 rounded-[3rem] border border-red-600 mb-20">
+            <div class="max-w-3xl mx-auto bg-black p-10 rounded-[3rem] border border-red-600 mb-20 shadow-2xl">
                 <h2 id="form-title" class="text-3xl font-black text-red-500 mb-10 text-center uppercase italic">Post New Content</h2>
-                <form id="story-form" class="space-y-6 text-white">
+                <form id="story-form" class="space-y-6">
                     <input type="hidden" id="edit-index" value="-1">
-                    <input type="text" id="title" placeholder="Story Title" class="w-full p-5 rounded-2xl bg-zinc-900 border border-zinc-800 outline-none font-bold" required>
-                    <select id="category" class="w-full p-5 rounded-2xl bg-zinc-900 border border-zinc-800 outline-none font-bold" required>
+                    <input type="text" id="title" placeholder="Story Title" class="w-full p-5 rounded-2xl bg-zinc-900 border border-zinc-800 outline-none font-bold text-white" required>
+                    <select id="category" class="w-full p-5 rounded-2xl bg-zinc-900 border border-zinc-800 outline-none font-bold text-white" required>
                         <option value="">Choose Category...</option>
                         <option value="Short Film Stories">Short Film Stories</option>
                         <option value="Movie Scenes">Movie Scenes</option>
                         <option value="Serial Content">Serial Content</option>
                     </select>
-                    <input type="text" id="imgUrl" placeholder="Poster Image URL" class="w-full p-5 rounded-2xl bg-zinc-900 border border-zinc-800 outline-none">
-                    <textarea id="desc" placeholder="Summary..." class="w-full p-5 rounded-2xl bg-zinc-900 border border-zinc-800 outline-none h-24"></textarea>
-                    <textarea id="fullStory" placeholder="Full script content..." class="w-full p-5 h-80 rounded-2xl bg-zinc-900 border border-zinc-800 outline-none"></textarea>
+                    <input type="text" id="imgUrl" placeholder="Poster Image URL" class="w-full p-5 rounded-2xl bg-zinc-900 border border-zinc-800 outline-none text-white">
+                    <textarea id="desc" placeholder="Summary..." class="w-full p-5 rounded-2xl bg-zinc-900 border border-zinc-800 outline-none h-24 text-white"></textarea>
+                    <textarea id="fullStory" placeholder="Full script content..." class="w-full p-5 h-80 rounded-2xl bg-zinc-900 border border-zinc-800 outline-none text-white"></textarea>
                     <button type="submit" id="submit-btn" class="w-full bg-red-600 py-5 rounded-2xl font-black text-xl hover:bg-red-700 transition uppercase tracking-widest">Publish Story</button>
                     <button type="button" id="cancel-edit" onclick="resetForm()" class="hidden w-full bg-zinc-800 py-3 rounded-xl font-bold mt-2">Cancel Edit</button>
                 </form>
             </div>
 
-            <!-- ADMIN CATEGORY DASHBOARD -->
             <div class="max-w-7xl mx-auto space-y-20">
                 <div>
                     <h3 class="text-3xl font-black text-red-500 mb-8 border-b-4 border-red-600 pb-2 uppercase italic">Short Film Stories</h3>
@@ -155,13 +154,12 @@
 
         function renderStories(filter = 'All') {
             const userGrid = document.getElementById('story-grid');
-            
-            // ADMIN PANELS
             const adminSF = document.getElementById('admin-shortfilm');
             const adminMS = document.getElementById('admin-moviescenes');
             const adminSC = document.getElementById('admin-serial');
 
-            const createCard = (s, globalIndex) => {
+            const createCard = (s) => {
+                const globalIndex = stories.indexOf(s);
                 const storyComments = comments[s.title] || [];
                 const hasComments = storyComments.length > 0 && isAdmin;
                 return `
@@ -175,24 +173,69 @@
                         </div>
                     ` : ''}
                     <div class="h-60 overflow-hidden bg-zinc-800">
-                        <img src="${s.img || 'https://via.placeholder.com/600x400/111/fff?text=Vinay+Writes'}" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-700">
+                        <img src="${s.img || 'https://via.placeholder.com/600x400/111/fff?text=Cinematic+Scene'}" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-700">
                     </div>
-                    <div class="p-8 text-white">
+                    <div class="p-8">
                         <span class="text-red-500 text-[10px] font-black uppercase tracking-widest">${s.category}</span>
-                        <h3 class="text-2xl font-black mt-2 mb-4 uppercase italic leading-tight">${s.title}</h3>
-                        <button onclick="showDetails(${globalIndex})" class="w-full border-2 border-zinc-800 py-4 rounded-2xl font-black uppercase hover:bg-red-600 hover:border-red-600 transition tracking-widest">Read Script</button>
+                        <h3 class="text-2xl font-black mt-2 mb-4 uppercase italic leading-tight text-white">${s.title}</h3>
+                        <button onclick="showDetails(${globalIndex})" class="w-full border-2 border-zinc-800 py-4 rounded-2xl font-black uppercase hover:bg-red-600 hover:border-red-600 transition tracking-widest text-white">Read Script</button>
                     </div>
                 </div>`;
             };
 
             if(isAdmin) {
-                adminSF.innerHTML = stories.filter(s => s.category === 'Short Film Stories').map(s => createCard(s, stories.indexOf(s))).join('');
-                adminMS.innerHTML = stories.filter(s => s.category === 'Movie Scenes').map(s => createCard(s, stories.indexOf(s))).join('');
-                adminSC.innerHTML = stories.filter(s => s.category === 'Serial Content').map(s => createCard(s, stories.indexOf(s))).join('');
+                adminSF.innerHTML = stories.filter(s => s.category === 'Short Film Stories').map(s => createCard(s)).join('');
+                adminMS.innerHTML = stories.filter(s => s.category === 'Movie Scenes').map(s => createCard(s)).join('');
+                adminSC.innerHTML = stories.filter(s => s.category === 'Serial Content').map(s => createCard(s)).join('');
             } else {
                 const userFiltered = stories.filter(s => !s.hidden && s.category === filter);
-                userGrid.innerHTML = userFiltered.map(s => createCard(s, stories.indexOf(s))).join('');
+                userGrid.innerHTML = userFiltered.map(s => createCard(s)).join('');
                 if(filter !== 'All') window.scrollTo({ top: userGrid.offsetTop - 100, behavior: 'smooth' });
+            }
+        }
+
+        function showDetails(index) {
+            const s = stories[index];
+            document.getElementById('home-page').classList.remove('active');
+            document.getElementById('details-page').classList.add('active');
+            document.getElementById('details-content').innerHTML = `
+                <h1 id="current-story-title" class="text-5xl md:text-7xl font-black mb-12 uppercase italic underline decoration-red-600 decoration-8 text-white">${s.title}</h1>
+                <div class="text-zinc-300 text-xl leading-relaxed whitespace-pre-line font-medium">${s.story}</div>
+            `;
+            // Immediate rendering of comments
+            renderComments(s.title);
+            window.scrollTo(0,0);
+        }
+
+        function renderComments(title) {
+            const list = document.getElementById('comment-list');
+            const storyComments = comments[title] || [];
+            list.innerHTML = storyComments.map((c, i) => `
+                <div class="${c.isWriter ? 'writer-reply border-red-500' : 'bg-zinc-900 p-6 rounded-2xl border border-zinc-800'} relative text-white">
+                    ${isAdmin ? `<button onclick="deleteComment('${title}', ${i})" class="absolute top-4 right-4 text-red-500 font-bold text-[10px] uppercase">Remove</button>` : ''}
+                    <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest">${c.isWriter ? 'Vinay\'s Reply' : 'User Feedback'} — ${c.date}</span>
+                    <p class="text-zinc-200 mt-2 text-lg font-medium leading-relaxed">${c.text}</p>
+                    ${isAdmin && !c.isWriter ? `<button onclick="document.getElementById('user-comment').value = '@Reply: '; window.scrollTo(0, document.body.scrollHeight);" class="text-xs text-red-500 mt-3 font-bold uppercase">Reply</button>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function postComment() {
+            const text = document.getElementById('user-comment').value;
+            const title = document.getElementById('current-story-title').innerText;
+            if(!comments[title]) comments[title] = [];
+            comments[title].push({ text, date: new Date().toLocaleDateString(), isWriter: isAdmin });
+            localStorage.setItem('vinay_vfinal_comments', JSON.stringify(comments));
+            renderComments(title);
+            document.getElementById('user-comment').value = "";
+            renderStories('All');
+        }
+
+        function deleteComment(storyTitle, index) {
+            if(confirm("Remove this feedback?")) {
+                comments[storyTitle].splice(index, 1);
+                localStorage.setItem('vinay_vfinal_comments', JSON.stringify(comments));
+                renderComments(storyTitle);
             }
         }
 
@@ -224,18 +267,6 @@
             renderStories('All');
         }
 
-        function showDetails(index) {
-            const s = stories[index];
-            document.getElementById('home-page').classList.remove('active');
-            document.getElementById('details-page').classList.add('active');
-            document.getElementById('details-content').innerHTML = `
-                <h1 id="current-story-title" class="text-5xl md:text-7xl font-black mb-12 uppercase italic underline decoration-red-600 decoration-8 text-white">${s.title}</h1>
-                <div class="text-zinc-300 text-xl leading-relaxed whitespace-pre-line font-medium">${s.story}</div>
-            `;
-            renderComments(s.title);
-            window.scrollTo(0,0);
-        }
-
         function showHome() {
             document.getElementById('details-page').classList.remove('active');
             document.getElementById('home-page').classList.add('active');
@@ -252,7 +283,7 @@
                 story: document.getElementById('fullStory').value,
                 hidden: index !== -1 ? stories[index].hidden : false
             };
-            if(index === -1) { stories.push(newData); } else { stories[index] = newData; }
+            if(index === -1) { stories.push(newData); alert("Story Published!"); } else { stories[index] = newData; alert("Changes Saved!"); }
             localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories));
             resetForm();
             renderStories('All');
@@ -260,41 +291,15 @@
 
         function deleteStory(index) {
             if(confirm("Delete Permanently?")) {
+                const title = stories[index].title;
                 stories.splice(index, 1);
+                delete comments[title];
                 localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories));
+                localStorage.setItem('vinay_vfinal_comments', JSON.stringify(comments));
                 renderStories('All');
             }
         }
 
-        function postComment() {
-            const text = document.getElementById('user-comment').value;
-            const title = document.getElementById('current-story-title').innerText;
-            if(!comments[title]) comments[title] = [];
-            comments[title].push({ text, date: new Date().toLocaleDateString(), isWriter: isAdmin });
-            localStorage.setItem('vinay_vfinal_comments', JSON.stringify(comments));
-            renderComments(title);
-            document.getElementById('user-comment').value = "";
-            renderStories('All');
-        }
-
-        function deleteComment(storyTitle, index) {
-            if(confirm("Remove this feedback?")) {
-                comments[storyTitle].splice(index, 1);
-                localStorage.setItem('vinay_vfinal_comments', JSON.stringify(comments));
-                renderComments(storyTitle);
-            }
-        }
-
-        function renderComments(title) {
-            const list = document.getElementById('comment-list');
-            list.innerHTML = (comments[title] || []).map((c, i) => `
-                <div class="${c.isWriter ? 'writer-reply border-red-500' : 'bg-zinc-900 p-6 rounded-2xl border border-zinc-800'} relative text-white">
-                    ${isAdmin ? `<button onclick="deleteComment('${title}', ${i})" class="absolute top-4 right-4 text-red-500 font-bold text-[10px] uppercase">Remove</button>` : ''}
-                    <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest">${c.isWriter ? 'Vinay\'s Reply' : 'User Feedback'} — ${c.date}</span>
-                    <p class="text-zinc-200 mt-2 text-lg font-medium leading-relaxed">${c.text}</p>
-                </div>
-            `).join('');
-        }
         renderStories('All');
     </script>
 </body>
