@@ -36,26 +36,11 @@
             </div>
         </header>
 
-        <!-- EXPERTISE SECTION -->
-        <section class="user-view-only py-24 px-6 bg-black border-y border-zinc-900">
-            <div class="max-w-6xl mx-auto">
-                <h3 class="text-3xl font-black text-center mb-16 uppercase tracking-widest italic text-zinc-500">My Professional Expertise</h3>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="p-10 bg-blue-900/20 border-l-8 border-blue-600 rounded-r-3xl">
-                        <h3 class="text-3xl font-black mb-4 uppercase">Screenplay Construction</h3>
-                        <p class="text-zinc-400 text-lg">I can write a scene to a screenplay with professional pacing, visual beats, and industry-standard structure.</p>
-                    </div>
-                    <div class="p-10 bg-purple-900/20 border-l-8 border-purple-600 rounded-r-3xl">
-                        <h3 class="text-3xl font-black mb-4 uppercase">Story Discussions</h3>
-                        <p class="text-zinc-400 text-lg">I can participate in story discussions to refine concepts, bridge plot holes, and strengthen emotional arcs.</p>
-                    </div>
-                </div>
+        <!-- STORIES GRID (Click చేస్తేనే ఇక్కడ కనిపిస్తాయి) -->
+        <section id="portfolio" class="user-view-only py-20 px-6 bg-black">
+            <div id="story-grid" class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+                <!-- Content injected here by JavaScript -->
             </div>
-        </section>
-
-        <!-- STORIES GRID (User Only) -->
-        <section id="portfolio" class="user-view-only py-20 px-6 bg-zinc-950">
-            <div id="story-grid" class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8"></div>
         </section>
 
         <!-- CONTACT FOOTER -->
@@ -63,12 +48,12 @@
             <div class="max-w-5xl mx-auto text-center">
                 <h3 class="text-5xl md:text-7xl font-black mb-8 italic uppercase text-white">Let's Collaborate.</h3>
                 <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto text-white">
-                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black">
-                        <span class="text-orange-500 font-black uppercase text-[10px] mb-3 block">Email Address</span>
+                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black shadow-2xl">
+                        <span class="text-orange-500 font-black uppercase text-[10px] mb-3 block tracking-widest">Email Address</span>
                         <a href="mailto:kammarivinaykumar981@gmail.com" class="text-lg md:text-xl font-bold">kammarivinaykumar981@gmail.com</a>
                     </div>
-                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black">
-                        <span class="text-green-500 font-black uppercase text-[10px] mb-3 block">WhatsApp Me</span>
+                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black shadow-2xl">
+                        <span class="text-green-500 font-black uppercase text-[10px] mb-3 block tracking-widest">WhatsApp Me</span>
                         <a href="https://wa.me/917981587505" target="_blank" class="text-2xl md:text-3xl font-bold">+91 79815 87505</a>
                     </div>
                 </div>
@@ -77,7 +62,7 @@
 
         <!-- ADMIN SECTION -->
         <section class="admin-section py-20 px-6 bg-zinc-900 min-h-screen">
-            <div class="max-w-3xl mx-auto bg-black p-10 rounded-[3rem] border border-red-600 mb-20">
+            <div class="max-w-3xl mx-auto bg-black p-10 rounded-[3rem] border border-red-600 mb-20 shadow-2xl">
                 <h2 id="form-title" class="text-3xl font-black text-red-500 mb-10 text-center uppercase italic">Post New Content</h2>
                 <form id="story-form" class="space-y-6">
                     <input type="hidden" id="edit-index" value="-1">
@@ -90,7 +75,6 @@
                     </select>
                     <textarea id="fullStory" placeholder="Full script content..." class="w-full p-5 h-80 rounded-2xl bg-zinc-900 border border-zinc-800 text-white outline-none"></textarea>
                     <button type="submit" id="submit-btn" class="w-full bg-red-600 py-5 rounded-2xl font-black text-xl hover:bg-red-700 transition uppercase text-white">Publish Story</button>
-                    <button type="button" id="cancel-edit" onclick="resetForm()" class="hidden w-full bg-zinc-800 py-3 rounded-xl font-bold mt-2 text-white">Cancel Edit</button>
                 </form>
             </div>
             <div class="max-w-7xl mx-auto space-y-20 text-white">
@@ -99,7 +83,7 @@
         </section>
     </div>
 
-    <!-- DETAILS PAGE -->
+    <!-- DETAILS PAGE (Story Full Content) -->
     <div id="details-page" class="page p-6 md:p-20 bg-black min-h-screen">
         <button onclick="showHome()" class="text-red-500 mb-10 font-bold uppercase tracking-widest">← BACK</button>
         <div id="details-content" class="max-w-4xl mx-auto text-white"></div>
@@ -121,16 +105,17 @@
                 document.body.classList.remove('admin-mode');
                 document.getElementById('view-toggle').innerText = "ADMIN LOGIN";
             }
-            renderStories('All');
+            renderStories('None'); // Logout తర్వాత ఖాళీగా ఉంచుతుంది
         }
 
-        function renderStories(filter = 'All') {
+        function renderStories(filter = 'None') {
             const userGrid = document.getElementById('story-grid');
             const adminContainer = document.getElementById('admin-lists-container');
             
             const createCard = (s, globalIndex) => {
+                // image_75e657.png లో ఉన్న డిజైన్ ప్రకారం కార్డ్
                 return `
-                <div class="bg-zinc-900 border ${s.hidden ? 'border-zinc-700 opacity-40' : 'border-zinc-800'} rounded-[2.5rem] overflow-hidden p-8 relative">
+                <div class="bg-zinc-900/50 border border-zinc-800 rounded-[2.5rem] p-10 relative group hover:border-red-600 transition-all duration-500">
                     ${isAdmin ? `
                         <div class="absolute top-4 right-4 flex gap-2">
                             <button onclick="editStory(${globalIndex})" class="bg-blue-600 p-1 px-2 rounded-full text-[8px] font-black uppercase text-white">Edit</button>
@@ -138,9 +123,9 @@
                             <button onclick="deleteStory(${globalIndex})" class="bg-red-600 p-1 px-2 rounded-full text-[8px] font-black uppercase text-white">Del</button>
                         </div>
                     ` : ''}
-                    <span class="text-red-500 text-[10px] font-black uppercase tracking-widest">${s.category}</span>
-                    <h3 class="text-2xl font-black mt-2 mb-6 uppercase italic text-white">${s.title}</h3>
-                    <button onclick="showDetails(${globalIndex})" class="w-full border-2 border-zinc-800 py-3 rounded-xl font-black uppercase hover:bg-red-600 transition text-sm text-white">Read Script</button>
+                    <span class="text-red-500 text-[10px] font-black uppercase tracking-widest mb-4 block">${s.category}</span>
+                    <h3 class="text-4xl font-black mb-8 uppercase italic text-white leading-tight">${s.title}</h3>
+                    <button onclick="showDetails(${globalIndex})" class="w-full border border-zinc-700 py-4 rounded-2xl font-black uppercase hover:bg-white hover:text-black transition tracking-widest text-white text-sm">Read Script</button>
                 </div>`;
             };
 
@@ -155,8 +140,17 @@
                     </div>
                 `).join('');
             } else {
-                userGrid.innerHTML = stories.filter(s => !s.hidden && (filter === 'All' || s.category === filter)).map(s => createCard(s, stories.indexOf(s))).join('');
-                if(filter !== 'All') window.scrollTo({ top: userGrid.offsetTop - 100, behavior: 'smooth' });
+                if(filter === 'None') {
+                    userGrid.innerHTML = "";
+                    return;
+                }
+                const filtered = stories.filter(s => !s.hidden && s.category === filter);
+                userGrid.innerHTML = filtered.length > 0 
+                    ? filtered.map(s => createCard(s, stories.indexOf(s))).join('')
+                    : `<p class="col-span-full text-center text-zinc-500 uppercase tracking-widest py-10">No stories found in this category.</p>`;
+                
+                // స్క్రీన్ కిందకి స్క్రోల్ అవుతుంది
+                window.scrollTo({ top: userGrid.offsetTop - 100, behavior: 'smooth' });
             }
         }
 
@@ -174,9 +168,9 @@
         function showHome() {
             document.getElementById('details-page').classList.remove('active');
             document.getElementById('home-page').classList.add('active');
-            renderStories('All');
         }
 
+        // Admin Utility Functions
         function deleteStory(index) { if(confirm("Delete story?")) { stories.splice(index, 1); localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories)); renderStories('All'); } }
         function toggleHide(index) { stories[index].hidden = !stories[index].hidden; localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories)); renderStories('All'); }
         function editStory(index) {
@@ -206,7 +200,8 @@
             renderStories('All');
         };
 
-        renderStories('All');
+        // ప్రారంభంలో ఖాళీగా ఉంటుంది
+        renderStories('None');
     </script>
 </body>
 </html>
