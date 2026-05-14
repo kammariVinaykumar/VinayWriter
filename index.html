@@ -26,7 +26,7 @@
         <!-- HERO SECTION -->
         <header class="user-view-only pt-32 pb-20 px-6 text-center bg-gradient-to-b from-zinc-900 to-black">
             <h2 class="text-red-500 font-bold tracking-[0.3em] mb-6 uppercase text-sm">Telugu Screenplay Writer</h2>
-            <h1 class="text-6xl md:text-8xl font-black mb-8 leading-tight uppercase italic">Stories That <br><span class="text-red-600">Hit Different.</span></h1>
+            <h1 class="text-6xl md:text-8xl font-black mb-8 leading-tight uppercase italic text-white">Stories That <br><span class="text-red-600">Hit Different.</span></h1>
             
             <div class="flex flex-col items-center gap-6 mt-10">
                 <h3 class="text-2xl font-black uppercase tracking-widest italic text-zinc-400">Read My Stories</h3>
@@ -38,7 +38,7 @@
             </div>
         </header>
 
-        <!-- PORTFOLIO GRID -->
+        <!-- STORIES PORTFOLIO -->
         <section id="portfolio" class="user-view-only py-20 px-6 bg-zinc-950">
             <div id="story-grid" class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8"></div>
         </section>
@@ -46,15 +46,15 @@
         <!-- CONTACT FOOTER -->
         <footer class="user-view-only py-32 px-6 bg-orange-600">
             <div class="max-w-5xl mx-auto text-center">
-                <h3 class="text-5xl md:text-7xl font-black mb-8 italic uppercase text-white">Let's Collaborate.</h3>
-                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <h3 class="text-5xl md:text-7xl font-black mb-8 italic uppercase text-white text-white">Let's Collaborate.</h3>
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto text-white">
                     <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black">
                         <span class="text-orange-500 font-black uppercase text-[10px] mb-3 block">Email Address</span>
-                        <a href="mailto:kammarivinaykumar981@gmail.com" class="text-lg md:text-xl font-bold text-white">kammarivinaykumar981@gmail.com</a>
+                        <a href="mailto:kammarivinaykumar981@gmail.com" class="text-lg md:text-xl font-bold">kammarivinaykumar981@gmail.com</a>
                     </div>
                     <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black">
                         <span class="text-green-500 font-black uppercase text-[10px] mb-3 block">WhatsApp Me</span>
-                        <a href="https://wa.me/917981587505" target="_blank" class="text-2xl md:text-3xl font-bold text-white">+91 79815 87505</a>
+                        <a href="https://wa.me/917981587505" target="_blank" class="text-2xl md:text-3xl font-bold">+91 79815 87505</a>
                     </div>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                         <option value="Serial Content">Serial Content</option>
                     </select>
                     <textarea id="fullStory" placeholder="Full script content..." class="w-full p-5 h-80 rounded-2xl bg-zinc-900 border border-zinc-800 text-white outline-none"></textarea>
-                    <button type="submit" id="submit-btn" class="w-full bg-red-600 py-5 rounded-2xl font-black text-xl hover:bg-red-700 transition uppercase tracking-widest">Publish Story</button>
+                    <button type="submit" id="submit-btn" class="w-full bg-red-600 py-5 rounded-2xl font-black text-xl hover:bg-red-700 transition uppercase tracking-widest text-white">Publish Story</button>
                 </form>
             </div>
 
@@ -171,14 +171,10 @@
             const s = stories[index];
             document.getElementById('home-page').classList.remove('active');
             document.getElementById('details-page').classList.add('active');
-            
-            // Fixed rendering with direct ID reference
             document.getElementById('details-content').innerHTML = `
                 <h1 id="current-story-title" class="text-5xl md:text-7xl font-black mb-12 uppercase italic underline decoration-red-600 decoration-8 text-white">${s.title}</h1>
                 <div class="text-zinc-300 text-xl leading-relaxed whitespace-pre-line font-medium">${s.story}</div>
             `;
-            
-            // Logic Fix: Pass exact title to ensure rendering
             renderComments(s.title);
             window.scrollTo(0,0);
         }
@@ -186,7 +182,6 @@
         function renderComments(title) {
             const list = document.getElementById('comment-list');
             const storyComments = comments[title] || [];
-            
             list.innerHTML = storyComments.length > 0 
                 ? storyComments.map((c, i) => `
                     <div class="${c.isWriter ? 'writer-reply border-red-500' : 'bg-zinc-900 p-6 rounded-2xl border border-zinc-800'} relative text-white">
@@ -207,9 +202,9 @@
             comments[title].push({ text, date: new Date().toLocaleDateString(), isWriter: isAdmin });
             localStorage.setItem('vinay_vfinal_comments', JSON.stringify(comments));
             
-            // Alert System: Trigger alert if not writer
+            // ADMIN ALERT
             if(!isAdmin) {
-                alert("New Feedback Sent to Admin!");
+                alert("New Feedback Alert! Sending notification to Admin.");
             }
             
             renderComments(title);
@@ -230,7 +225,6 @@
             document.getElementById('home-page').classList.add('active');
         }
 
-        // Standard logic for Admin functions
         function editStory(index) {
             const s = stories[index];
             document.getElementById('edit-index').value = index;
@@ -268,8 +262,6 @@
             if(index === -1) stories.push(newData); else stories[index] = newData;
             localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories));
             document.getElementById('story-form').reset();
-            document.getElementById('form-title').innerText = "Post New Content";
-            document.getElementById('submit-btn').innerText = "Publish Story";
             renderStories('All');
         };
 
