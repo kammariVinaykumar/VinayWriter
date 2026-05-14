@@ -46,14 +46,14 @@
         <!-- CONTACT FOOTER -->
         <footer class="user-view-only py-32 px-6 bg-orange-600">
             <div class="max-w-5xl mx-auto text-center">
-                <h3 class="text-5xl md:text-7xl font-black mb-8 italic uppercase text-white text-white">Let's Collaborate.</h3>
+                <h3 class="text-5xl md:text-7xl font-black mb-8 italic uppercase text-white">Let's Collaborate.</h3>
                 <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto text-white">
-                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black">
-                        <span class="text-orange-500 font-black uppercase text-[10px] mb-3 block">Email Address</span>
+                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black shadow-2xl">
+                        <span class="text-orange-500 font-black uppercase text-[10px] mb-3 block tracking-widest">Email Address</span>
                         <a href="mailto:kammarivinaykumar981@gmail.com" class="text-lg md:text-xl font-bold">kammarivinaykumar981@gmail.com</a>
                     </div>
-                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black">
-                        <span class="text-green-500 font-black uppercase text-[10px] mb-3 block">WhatsApp Me</span>
+                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black shadow-2xl">
+                        <span class="text-green-500 font-black uppercase text-[10px] mb-3 block tracking-widest">WhatsApp Me</span>
                         <a href="https://wa.me/917981587505" target="_blank" class="text-2xl md:text-3xl font-bold">+91 79815 87505</a>
                     </div>
                 </div>
@@ -75,21 +75,22 @@
                     </select>
                     <textarea id="fullStory" placeholder="Full script content..." class="w-full p-5 h-80 rounded-2xl bg-zinc-900 border border-zinc-800 text-white outline-none"></textarea>
                     <button type="submit" id="submit-btn" class="w-full bg-red-600 py-5 rounded-2xl font-black text-xl hover:bg-red-700 transition uppercase tracking-widest text-white">Publish Story</button>
+                    <button type="button" id="cancel-edit" onclick="resetForm()" class="hidden w-full bg-zinc-800 py-3 rounded-xl font-bold mt-2 text-white">Cancel Edit</button>
                 </form>
             </div>
 
             <div class="max-w-7xl mx-auto space-y-20 text-white">
                 <div>
-                    <h3 class="text-3xl font-black text-red-500 mb-8 border-b-4 border-red-600 pb-2 uppercase italic">Short Film Stories</h3>
-                    <div id="admin-shortfilm" class="grid md:grid-cols-3 gap-8"></div>
+                    <h3 class="text-3xl font-black text-red-500 mb-8 border-b-4 border-red-600 pb-2 uppercase italic text-white">Short Film Stories</h3>
+                    <div id="admin-shortfilm" class="grid md:grid-cols-3 gap-8 text-white"></div>
                 </div>
                 <div>
-                    <h3 class="text-3xl font-black text-blue-500 mb-8 border-b-4 border-blue-600 pb-2 uppercase italic">Movie Scenes</h3>
-                    <div id="admin-moviescenes" class="grid md:grid-cols-3 gap-8"></div>
+                    <h3 class="text-3xl font-black text-blue-500 mb-8 border-b-4 border-blue-600 pb-2 uppercase italic text-white">Movie Scenes</h3>
+                    <div id="admin-moviescenes" class="grid md:grid-cols-3 gap-8 text-white"></div>
                 </div>
                 <div>
-                    <h3 class="text-3xl font-black text-green-500 mb-8 border-b-4 border-green-600 pb-2 uppercase italic">Serial Content</h3>
-                    <div id="admin-serial" class="grid md:grid-cols-3 gap-8"></div>
+                    <h3 class="text-3xl font-black text-green-500 mb-8 border-b-4 border-green-600 pb-2 uppercase italic text-white">Serial Content</h3>
+                    <div id="admin-serial" class="grid md:grid-cols-3 gap-8 text-white"></div>
                 </div>
             </div>
         </section>
@@ -172,8 +173,8 @@
             document.getElementById('home-page').classList.remove('active');
             document.getElementById('details-page').classList.add('active');
             document.getElementById('details-content').innerHTML = `
-                <h1 id="current-story-title" class="text-5xl md:text-7xl font-black mb-12 uppercase italic underline decoration-red-600 decoration-8 text-white">${s.title}</h1>
-                <div class="text-zinc-300 text-xl leading-relaxed whitespace-pre-line font-medium">${s.story}</div>
+                <h1 id="current-story-title" class="text-5xl md:text-7xl font-black mb-12 uppercase italic underline decoration-red-600 decoration-8 text-white text-white">${s.title}</h1>
+                <div class="text-zinc-300 text-xl leading-relaxed whitespace-pre-line font-medium text-white">${s.story}</div>
             `;
             renderComments(s.title);
             window.scrollTo(0,0);
@@ -202,9 +203,10 @@
             comments[title].push({ text, date: new Date().toLocaleDateString(), isWriter: isAdmin });
             localStorage.setItem('vinay_vfinal_comments', JSON.stringify(comments));
             
-            // ADMIN ALERT
-            if(!isAdmin) {
-                alert("New Feedback Alert! Sending notification to Admin.");
+            // ADMIN ALERT LOGIC:
+            // Alert will ONLY show if you are in Admin Mode.
+            if(isAdmin) {
+                alert("New Feedback Received on: " + title);
             }
             
             renderComments(title);
@@ -220,11 +222,6 @@
             }
         }
 
-        function showHome() {
-            document.getElementById('details-page').classList.remove('active');
-            document.getElementById('home-page').classList.add('active');
-        }
-
         function editStory(index) {
             const s = stories[index];
             document.getElementById('edit-index').value = index;
@@ -233,7 +230,16 @@
             document.getElementById('fullStory').value = s.story;
             document.getElementById('form-title').innerText = "Modify Story Content";
             document.getElementById('submit-btn').innerText = "Save Changes";
+            document.getElementById('cancel-edit').classList.remove('hidden');
             window.scrollTo({ top: document.querySelector('.admin-section').offsetTop, behavior: 'smooth' });
+        }
+
+        function resetForm() {
+            document.getElementById('story-form').reset();
+            document.getElementById('edit-index').value = "-1";
+            document.getElementById('form-title').innerText = "Post New Content";
+            document.getElementById('submit-btn').innerText = "Publish Story";
+            document.getElementById('cancel-edit').classList.add('hidden');
         }
 
         function toggleHide(index) {
@@ -250,6 +256,11 @@
             }
         }
 
+        function showHome() {
+            document.getElementById('details-page').classList.remove('active');
+            document.getElementById('home-page').classList.add('active');
+        }
+
         document.getElementById('story-form').onsubmit = function(e) {
             e.preventDefault();
             const index = parseInt(document.getElementById('edit-index').value);
@@ -261,7 +272,7 @@
             };
             if(index === -1) stories.push(newData); else stories[index] = newData;
             localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories));
-            document.getElementById('story-form').reset();
+            resetForm();
             renderStories('All');
         };
 
