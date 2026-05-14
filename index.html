@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vinay Writes | Telugu Screenplay Writer</title>
+    <title>Vinay Writes | Screenplay Writer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .page { display: none; }
@@ -31,9 +31,9 @@
             <div class="flex flex-col items-center gap-6 mt-10">
                 <h3 class="text-2xl font-black uppercase tracking-widest italic text-zinc-400">Read My Stories</h3>
                 <div class="flex flex-wrap justify-center gap-4">
-                    <button onclick="renderStories('Short Film Stories')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase tracking-widest">Short Film Stories</button>
-                    <button onclick="renderStories('Movie Scenes')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase tracking-widest">Movie Scenes</button>
-                    <button onclick="renderStories('Serial Content')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase tracking-widest">Serial Content</button>
+                    <button onclick="renderStories('Short Film Stories')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase">Short Film Stories</button>
+                    <button onclick="renderStories('Movie Scenes')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase">Movie Scenes</button>
+                    <button onclick="renderStories('Serial Content')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase">Serial Content</button>
                 </div>
             </div>
         </header>
@@ -44,17 +44,17 @@
         </section>
 
         <!-- CONTACT FOOTER -->
-        <footer class="user-view-only py-32 px-6 bg-orange-600 text-white">
+        <footer class="user-view-only py-32 px-6 bg-orange-600">
             <div class="max-w-5xl mx-auto text-center">
-                <h3 class="text-5xl md:text-7xl font-black mb-8 italic uppercase tracking-tighter">Let's Collaborate.</h3>
+                <h3 class="text-5xl md:text-7xl font-black mb-8 italic uppercase text-white">Let's Collaborate.</h3>
                 <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black shadow-2xl">
+                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black">
                         <span class="text-orange-500 font-black uppercase text-[10px] mb-3 block">Email Address</span>
-                        <a href="mailto:kammarivinaykumar981@gmail.com" class="text-lg md:text-xl font-bold">kammarivinaykumar981@gmail.com</a>
+                        <a href="mailto:kammarivinaykumar981@gmail.com" class="text-lg md:text-xl font-bold text-white">kammarivinaykumar981@gmail.com</a>
                     </div>
-                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black shadow-2xl">
+                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black">
                         <span class="text-green-500 font-black uppercase text-[10px] mb-3 block">WhatsApp Me</span>
-                        <a href="https://wa.me/917981587505" target="_blank" class="text-2xl md:text-3xl font-bold">+91 79815 87505</a>
+                        <a href="https://wa.me/917981587505" target="_blank" class="text-2xl md:text-3xl font-bold text-white">+91 79815 87505</a>
                     </div>
                 </div>
             </div>
@@ -62,8 +62,7 @@
 
         <!-- ADMIN SECTION -->
         <section class="admin-section py-20 px-6 bg-zinc-900 min-h-screen">
-            <!-- Form for new story remains here -->
-            <div class="max-w-3xl mx-auto bg-black p-10 rounded-[3rem] border border-red-600 mb-20">
+            <div class="max-w-3xl mx-auto bg-black p-10 rounded-[3rem] border border-red-600 mb-20 shadow-2xl">
                 <h2 id="form-title" class="text-3xl font-black text-red-500 mb-10 text-center uppercase italic">Post New Content</h2>
                 <form id="story-form" class="space-y-6">
                     <input type="hidden" id="edit-index" value="-1">
@@ -79,19 +78,18 @@
                 </form>
             </div>
 
-            <!-- Admin Category Dashboard -->
-            <div class="max-w-7xl mx-auto space-y-20">
+            <div class="max-w-7xl mx-auto space-y-20 text-white">
                 <div>
                     <h3 class="text-3xl font-black text-red-500 mb-8 border-b-4 border-red-600 pb-2 uppercase italic">Short Film Stories</h3>
-                    <div id="admin-shortfilm" class="grid md:grid-cols-3 gap-8 text-white"></div>
+                    <div id="admin-shortfilm" class="grid md:grid-cols-3 gap-8"></div>
                 </div>
                 <div>
                     <h3 class="text-3xl font-black text-blue-500 mb-8 border-b-4 border-blue-600 pb-2 uppercase italic">Movie Scenes</h3>
-                    <div id="admin-moviescenes" class="grid md:grid-cols-3 gap-8 text-white"></div>
+                    <div id="admin-moviescenes" class="grid md:grid-cols-3 gap-8"></div>
                 </div>
                 <div>
                     <h3 class="text-3xl font-black text-green-500 mb-8 border-b-4 border-green-600 pb-2 uppercase italic">Serial Content</h3>
-                    <div id="admin-serial" class="grid md:grid-cols-3 gap-8 text-white"></div>
+                    <div id="admin-serial" class="grid md:grid-cols-3 gap-8"></div>
                 </div>
             </div>
         </section>
@@ -173,10 +171,14 @@
             const s = stories[index];
             document.getElementById('home-page').classList.remove('active');
             document.getElementById('details-page').classList.add('active');
+            
+            // Fixed rendering with direct ID reference
             document.getElementById('details-content').innerHTML = `
                 <h1 id="current-story-title" class="text-5xl md:text-7xl font-black mb-12 uppercase italic underline decoration-red-600 decoration-8 text-white">${s.title}</h1>
                 <div class="text-zinc-300 text-xl leading-relaxed whitespace-pre-line font-medium">${s.story}</div>
             `;
+            
+            // Logic Fix: Pass exact title to ensure rendering
             renderComments(s.title);
             window.scrollTo(0,0);
         }
@@ -184,21 +186,32 @@
         function renderComments(title) {
             const list = document.getElementById('comment-list');
             const storyComments = comments[title] || [];
-            list.innerHTML = storyComments.map((c, i) => `
-                <div class="${c.isWriter ? 'writer-reply border-red-500' : 'bg-zinc-900 p-6 rounded-2xl border border-zinc-800'} relative text-white">
-                    ${isAdmin ? `<button onclick="deleteComment('${title}', ${i})" class="absolute top-4 right-4 text-red-500 font-bold text-[10px] uppercase">Remove</button>` : ''}
-                    <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest">${c.isWriter ? 'Vinay\'s Reply' : 'User Feedback'} — ${c.date}</span>
-                    <p class="text-zinc-200 mt-2 text-lg font-medium leading-relaxed">${c.text}</p>
-                </div>
-            `).join('');
+            
+            list.innerHTML = storyComments.length > 0 
+                ? storyComments.map((c, i) => `
+                    <div class="${c.isWriter ? 'writer-reply border-red-500' : 'bg-zinc-900 p-6 rounded-2xl border border-zinc-800'} relative text-white">
+                        ${isAdmin ? `<button onclick="deleteComment('${title}', ${i})" class="absolute top-4 right-4 text-red-500 font-bold text-[10px] uppercase">Remove</button>` : ''}
+                        <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest">${c.isWriter ? "Vinay's Reply" : "User Feedback"} — ${c.date}</span>
+                        <p class="text-zinc-200 mt-2 text-lg font-medium leading-relaxed">${c.text}</p>
+                    </div>
+                `).join('') 
+                : `<p class="text-zinc-600 uppercase text-xs tracking-widest">No feedback yet.</p>`;
         }
 
         function postComment() {
             const text = document.getElementById('user-comment').value;
             const title = document.getElementById('current-story-title').innerText;
+            if(!text.trim()) return;
+
             if(!comments[title]) comments[title] = [];
             comments[title].push({ text, date: new Date().toLocaleDateString(), isWriter: isAdmin });
             localStorage.setItem('vinay_vfinal_comments', JSON.stringify(comments));
+            
+            // Alert System: Trigger alert if not writer
+            if(!isAdmin) {
+                alert("New Feedback Sent to Admin!");
+            }
+            
             renderComments(title);
             document.getElementById('user-comment').value = "";
             renderStories('All');
@@ -212,7 +225,12 @@
             }
         }
 
-        // Standard logic for Edit, Delete, Hide
+        function showHome() {
+            document.getElementById('details-page').classList.remove('active');
+            document.getElementById('home-page').classList.add('active');
+        }
+
+        // Standard logic for Admin functions
         function editStory(index) {
             const s = stories[index];
             document.getElementById('edit-index').value = index;
@@ -238,11 +256,6 @@
             }
         }
 
-        function showHome() {
-            document.getElementById('details-page').classList.remove('active');
-            document.getElementById('home-page').classList.add('active');
-        }
-
         document.getElementById('story-form').onsubmit = function(e) {
             e.preventDefault();
             const index = parseInt(document.getElementById('edit-index').value);
@@ -255,6 +268,8 @@
             if(index === -1) stories.push(newData); else stories[index] = newData;
             localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories));
             document.getElementById('story-form').reset();
+            document.getElementById('form-title').innerText = "Post New Content";
+            document.getElementById('submit-btn').innerText = "Publish Story";
             renderStories('All');
         };
 
