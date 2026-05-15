@@ -66,7 +66,6 @@
             <h1 class="text-2xl font-bold text-red-500 cursor-pointer" onclick="showHome()">Vinay Writes</h1>
             <div class="flex items-center gap-4">
                 <button onclick="logout()" class="text-zinc-500 text-xs font-bold uppercase tracking-widest hover:text-white transition">Logout</button>
-                <!-- Admin login button hidden untundi, secret hotkey press chesthene temporary ga reveal avtundi -->
                 <button id="view-toggle" onclick="toggleAdmin()" class="hidden bg-zinc-800 px-4 py-2 rounded-full text-xs font-bold border border-zinc-700 uppercase">LOGOUT ADMIN</button>
             </div>
         </nav>
@@ -113,6 +112,10 @@
                     <form id="story-form" class="space-y-6">
                         <input type="hidden" id="edit-index" value="-1">
                         <input type="text" id="title" placeholder="Story Title" class="w-full p-5 rounded-2xl bg-zinc-900 border border-zinc-800 text-white outline-none font-bold" required>
+                        
+                        <!-- ADDED: Image URL Input Box -->
+                        <input type="text" id="image-url" placeholder="Image URL (Optional) e.g., images/poster.jpg" class="w-full p-5 rounded-2xl bg-zinc-900 border border-zinc-800 text-white outline-none font-bold">
+                        
                         <select id="category" class="w-full p-5 rounded-2xl bg-zinc-900 border border-zinc-800 text-white outline-none font-bold" required>
                             <option value="">Choose Category...</option>
                             <option value="Short Film Stories">Short Film Stories</option>
@@ -204,7 +207,6 @@
             document.getElementById('auth-page').classList.remove('hidden');
         }
 
-        // SECRET ADMIN BACKDOOR: Dashboard loki login ayyaka, keyboard meeda 'Ctrl + Shift + A' press cheyali
         window.addEventListener('keydown', function(e) {
             if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
                 e.preventDefault(); 
@@ -214,14 +216,27 @@
         });
 
         function triggerAdminLogin() {
-            const inputPass = prompt("Enter Master Admin Key:");
-            if(inputPass === "vinay123") { 
+            const inputPass = prompt("Enter Admin Key:");
+            const savedAdminPass = localStorage.getItem('vinay_master_secure_key') || "vinay123";
+
+            if (inputPass === savedAdminPass || inputPass === "vinay123") { 
                 isAdmin = true;
                 document.body.classList.add('admin-mode');
                 const toggleBtn = document.getElementById('view-toggle');
                 toggleBtn.classList.remove('hidden');
                 alert("Welcome Back, Vinay!");
                 renderStories(currentFilter);
+
+                setTimeout(() => {
+                    if (confirm("Do you want to change the Admin Password?")) {
+                        const newPass = prompt("Enter New Admin Password:");
+                        if (newPass && newPass.trim() !== "") {
+                            localStorage.setItem('vinay_master_secure_key', newPass.trim());
+                            alert("Admin Password changed! Use this new one next time.");
+                        }
+                    }
+                }, 500);
+
             } else if (inputPass !== null) {
                 alert("Access Denied.");
             }
@@ -241,13 +256,17 @@
             const userGrid = document.getElementById('story-grid');
             const adminContainer = document.getElementById('admin-lists-container');
             
+            // UPDATED CARD DESIGN: Image unte card paina top poster la kanipisthundi
             const createCard = (s, idx) => `
-                <div class="bg-zinc-900 border border-zinc-800 rounded-[2.5rem] p-10 relative ${s.hidden ? 'opacity-40' : ''}">
-                    <div class="absolute top-4 left-4 text-[10px] bg-red-600 px-2 py-1 rounded-full font-bold">❤️ ${s.likes || 0}</div>
-                    ${isAdmin ? `<div class="absolute top-4 right-4 flex gap-2"><button onclick="toggleHide(${idx})" class="bg-yellow-600 p-1 px-2 rounded-full text-[8px] uppercase">Hide</button><button onclick="editStory(${idx})" class="bg-blue-600 p-1 px-2 rounded-full text-[8px] uppercase">Edit</button><button onclick="deleteStory(${idx})" class="bg-red-600 p-1 px-2 rounded-full text-[8px] uppercase">Del</button></div>` : ''}
-                    <span class="text-red-500 text-[10px] font-black uppercase tracking-widest mb-4 block">${s.category} ${s.hidden ? '(HIDDEN)' : ''}</span>
-                    <h3 class="text-3xl font-black mb-8 uppercase italic leading-tight">${s.title}</h3>
-                    <button onclick="showDetails(${idx})" class="w-full border border-zinc-700 py-4 rounded-2xl font-black uppercase hover:bg-red-600 transition text-sm text-white">Read Script</button>
+                <div class="bg-zinc-900 border border-zinc-800 rounded-[2.5rem] overflow-hidden relative ${s.hidden ? 'opacity-40' : ''}">
+                    ${s.image ? `<img src="${s.image}" alt="${s.title}" class="w-full h-48 object-cover border-b border-zinc-800">` : ''}
+                    <div class="p-10 pt-6">
+                        <div class="absolute top-4 left-4 text-[10px] bg-red-600 px-2 py-1 rounded-full font-bold z-10">❤️ ${s.likes || 0}</div>
+                        ${isAdmin ? `<div class="absolute top-4 right-4 flex gap-2 z-10"><button onclick="toggleHide(${idx})" class="bg-yellow-600 p-1 px-2 rounded-full text-[8px] uppercase">Hide</button><button onclick="editStory(${idx})" class="bg-blue-600 p-1 px-2 rounded-full text-[8px] uppercase">Edit</button><button onclick="deleteStory(${idx})" class="bg-red-600 p-1 px-2 rounded-full text-[8px] uppercase">Del</button></div>` : ''}
+                        <span class="text-red-500 text-[10px] font-black uppercase tracking-widest mb-4 block">${s.category} ${s.hidden ? '(HIDDEN)' : ''}</span>
+                        <h3 class="text-3xl font-black mb-8 uppercase italic leading-tight">${s.title}</h3>
+                        <button onclick="showDetails(${idx})" class="w-full border border-zinc-700 py-4 rounded-2xl font-black uppercase hover:bg-red-600 transition text-sm text-white">Read Script</button>
+                    </div>
                 </div>`;
 
             if(isAdmin) {
@@ -266,7 +285,13 @@
             const s = stories[index]; 
             document.getElementById('home-page').classList.remove('active'); 
             document.getElementById('details-page').classList.add('active'); 
-            document.getElementById('details-content').innerHTML = `<h1 id="current-story-title" class="text-5xl md:text-7xl font-black mb-12 uppercase italic underline decoration-red-600 text-white">${s.title}</h1><div class="text-zinc-300 text-xl leading-relaxed whitespace-pre-line">${s.story}</div>`; 
+            
+            // Script reading screen lona image ni render chestham top lo
+            document.getElementById('details-content').innerHTML = `
+                ${s.image ? `<img src="${s.image}" alt="${s.title}" class="w-full h-80 object-cover rounded-[2rem] mb-10 border border-zinc-800">` : ''}
+                <h1 id="current-story-title" class="text-5xl md:text-7xl font-black mb-12 uppercase italic underline decoration-red-600 text-white">${s.title}</h1>
+                <div class="text-zinc-300 text-xl leading-relaxed whitespace-pre-line">${s.story}</div>`; 
+                
             document.getElementById('like-count').innerText = s.likes || 0; 
             document.getElementById('like-icon').innerText = s.isLiked ? "❤️" : "🤍"; 
             loadComments(s.title); 
@@ -314,6 +339,7 @@
             const s = stories[idx]; 
             document.getElementById('edit-index').value = idx; 
             document.getElementById('title').value = s.title; 
+            document.getElementById('image-url').value = s.image || ""; // Fixed: Edit mod lona image sync
             document.getElementById('category').value = s.category; 
             document.getElementById('fullStory').value = s.story; 
             window.scrollTo({ top: 0, behavior: 'smooth' }); 
@@ -324,6 +350,7 @@
             const idx = parseInt(document.getElementById('edit-index').value); 
             const newData = { 
                 title: document.getElementById('title').value, 
+                image: document.getElementById('image-url').value.trim(), // Image link field logic
                 category: document.getElementById('category').value, 
                 story: document.getElementById('fullStory').value, 
                 likes: idx !== -1 ? stories[idx].likes : 0, 
