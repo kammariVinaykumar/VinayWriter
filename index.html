@@ -34,7 +34,7 @@
 
     <div id="security-overlay">
         <div>
-            <h2 class="text-3xl font-black text-red-600 uppercase italic">Security Alert</h2>
+            <h2 class="text-3xl font-black text-red-600 uppercase italic text-white">Security Alert</h2>
             <p class="text-zinc-400">Content hidden to protect scripts.</p>
         </div>
     </div>
@@ -51,28 +51,28 @@
             
             <div class="flex flex-col items-center gap-6 mt-10">
                 <h3 class="text-2xl font-black uppercase tracking-widest italic text-zinc-400">Read My Stories</h3>
-                <div class="flex flex-wrap justify-center gap-4">
-                    <button onclick="renderStories('Short Film Stories')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase text-white">Short Film Stories</button>
-                    <button onclick="renderStories('Movie Scenes')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase text-white">Movie Scenes</button>
-                    <button onclick="renderStories('Serial Content')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase text-white">Serial Content</button>
+                <div class="flex flex-wrap justify-center gap-4 text-white">
+                    <button onclick="renderStories('Short Film Stories')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase">Short Film Stories</button>
+                    <button onclick="renderStories('Movie Scenes')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase">Movie Scenes</button>
+                    <button onclick="renderStories('Serial Content')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase">Serial Content</button>
                 </div>
             </div>
         </header>
 
         <section id="portfolio" class="user-view-only py-20 px-6 bg-black">
-            <div id="story-grid" class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8"></div>
+            <div id="story-grid" class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8 text-white"></div>
         </section>
 
         <footer class="user-view-only py-32 px-6 bg-orange-600">
             <div class="max-w-5xl mx-auto text-center">
                 <h3 class="text-5xl md:text-7xl font-black mb-8 italic uppercase text-white">Let's Collaborate.</h3>
                 <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black">
-                        <span class="text-orange-500 font-black uppercase text-[10px] mb-3 block">Email</span>
+                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black text-white">
+                        <span class="text-orange-500 font-black uppercase text-[10px] mb-3 block tracking-widest text-white">Email</span>
                         <a href="mailto:kammarivinaykumar981@gmail.com" class="text-lg md:text-xl font-bold text-white">kammarivinaykumar981@gmail.com</a>
                     </div>
-                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black">
-                        <span class="text-green-500 font-black uppercase text-[10px] mb-3 block">WhatsApp</span>
+                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black text-white">
+                        <span class="text-green-500 font-black uppercase text-[10px] mb-3 block tracking-widest text-white">WhatsApp</span>
                         <a href="https://wa.me/917981587505" target="_blank" class="text-2xl md:text-3xl font-bold text-white">+91 79815 87505</a>
                     </div>
                 </div>
@@ -109,9 +109,9 @@
             </button>
         </div>
 
-        <div class="max-w-4xl mx-auto mt-20 border-t border-zinc-900 pt-10">
-            <h3 class="text-2xl font-bold mb-8 text-red-500 italic uppercase">Feedbacks</h3>
-            <div id="comment-list" class="space-y-6 mb-10"></div>
+        <div class="max-w-4xl mx-auto mt-20 border-t border-zinc-900 pt-10 text-white">
+            <h3 class="text-2xl font-bold mb-8 text-red-500 italic uppercase text-white">Feedbacks</h3>
+            <div id="comment-list" class="space-y-6 mb-10 text-white"></div>
             <div class="bg-zinc-900 p-8 rounded-[2rem]">
                 <textarea id="user-comment" placeholder="Write feedback here..." class="w-full p-5 rounded-2xl bg-zinc-800 border border-zinc-700 mb-4 h-32 outline-none text-white"></textarea>
                 <button onclick="postComment()" class="bg-red-600 px-12 py-4 rounded-2xl font-bold uppercase tracking-widest text-white">Post Feedback</button>
@@ -144,26 +144,26 @@
             const userGrid = document.getElementById('story-grid');
             const adminContainer = document.getElementById('admin-lists-container');
             const createCard = (s, idx) => `
-                <div class="bg-zinc-900 border border-zinc-800 rounded-[2.5rem] p-10 relative ${s.hidden ? 'opacity-50' : ''}">
+                <div class="bg-zinc-900 border border-zinc-800 rounded-[2.5rem] p-10 relative ${s.hidden ? 'opacity-40' : ''}">
                     <div class="absolute top-4 left-4 text-[10px] bg-red-600 px-2 py-1 rounded-full font-bold">❤️ ${s.likes || 0}</div>
                     ${isAdmin ? `
                         <div class="absolute top-4 right-4 flex flex-wrap gap-2 justify-end">
                             <button onclick="toggleHide(${idx})" class="bg-yellow-600 p-1 px-2 rounded-full text-[8px] font-black uppercase text-white">${s.hidden ? 'Show' : 'Hide'}</button>
-                            <button onclick="editStory(${idx})" class="bg-blue-600 p-1 px-2 rounded-full text-[8px] font-black uppercase text-white">Edit</button>
-                            <button onclick="deleteStory(${idx})" class="bg-red-600 p-1 px-2 rounded-full text-[8px] font-black uppercase text-white">Del</button>
+                            <button onclick="editStory(${idx})" class="bg-blue-600 p-1 px-2 rounded-full text-[8px] font-black uppercase text-white text-white">Edit</button>
+                            <button onclick="deleteStory(${idx})" class="bg-red-600 p-1 px-2 rounded-full text-[8px] font-black uppercase text-white text-white">Del</button>
                         </div>
                     ` : ''}
                     <span class="text-red-500 text-[10px] font-black uppercase tracking-widest mb-4 block">${s.category} ${s.hidden ? '(HIDDEN)' : ''}</span>
-                    <h3 class="text-3xl font-black mb-8 uppercase italic text-white">${s.title}</h3>
-                    <button onclick="showDetails(${idx})" class="w-full border border-zinc-700 py-4 rounded-2xl font-black uppercase hover:bg-red-600 transition text-sm text-white">Read Script</button>
+                    <h3 class="text-3xl font-black mb-8 uppercase italic text-white leading-tight">${s.title}</h3>
+                    <button onclick="showDetails(${idx})" class="w-full border border-zinc-700 py-4 rounded-2xl font-black uppercase hover:bg-red-600 transition text-sm text-white text-white">Read Script</button>
                 </div>`;
 
             if(isAdmin) {
                 const cats = ['Short Film Stories', 'Movie Scenes', 'Serial Content'];
                 adminContainer.innerHTML = cats.map(cat => `
                     <div class="mb-10">
-                        <h3 class="text-3xl font-black text-white mb-8 border-b-4 border-red-600 pb-2 uppercase italic">${cat}</h3>
-                        <div class="grid md:grid-cols-3 gap-8 text-white">${stories.filter(s => s.category === cat).map(s => createCard(s, stories.indexOf(s))).join('')}</div>
+                        <h3 class="text-3xl font-black text-white mb-8 border-b-4 border-red-600 pb-2 uppercase italic text-white">${cat}</h3>
+                        <div class="grid md:grid-cols-3 gap-8">${stories.filter(s => s.category === cat).map(s => createCard(s, stories.indexOf(s))).join('')}</div>
                     </div>`).join('');
             } else {
                 if(filter === 'None') { userGrid.innerHTML = ""; return; }
@@ -208,15 +208,15 @@
             list.innerHTML = sc.map((c, idx) => `
                 <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 flex justify-between items-start text-white">
                     <div>
-                        <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest">Feedback</span>
-                        <p class="text-zinc-200 mt-2 text-lg font-medium">${c.text}</p>
+                        <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest text-white">Feedback</span>
+                        <p class="text-zinc-200 mt-2 text-lg font-medium text-white">${c.text}</p>
                     </div>
-                    ${isAdmin ? `<button onclick="removeComment('${title}', ${idx})" class="bg-red-900/50 text-red-500 px-3 py-1 rounded-full text-[10px] font-bold border border-red-500/30 uppercase">Remove</button>` : ''}
-                </div>`).join('') || `<p class="text-zinc-600 uppercase text-xs">No feedback yet.</p>`;
+                    ${isAdmin ? `<button onclick="removeComment('${title}', ${idx})" class="bg-red-900/50 text-red-500 px-3 py-1 rounded-full text-[10px] font-bold border border-red-500/30 uppercase text-white">Remove</button>` : ''}
+                </div>`).join('') || `<p class="text-zinc-600 uppercase text-xs text-white">No feedback yet.</p>`;
         }
 
         function removeComment(title, idx) {
-            if(confirm("Delete this comment?")) {
+            if(confirm("Delete this feedback?")) {
                 comments[title].splice(idx, 1);
                 localStorage.setItem('vinay_vfinal_comments', JSON.stringify(comments));
                 loadComments(title);
