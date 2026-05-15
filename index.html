@@ -7,30 +7,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         html, body { height: 100%; margin: 0; padding: 0; background-color: #000; }
-        
-        #auth-page {
-            display: grid;
-            place-items: center;
-            min-height: 100vh;
-            width: 100vw;
-        }
-
+        #auth-page { display: grid; place-items: center; min-height: 100vh; width: 100vw; }
         .page { display: none; }
         .active { display: block !important; }
         .hidden { display: none !important; }
-        
         body.admin-mode .user-view-only { display: none !important; }
         .admin-section { display: none; }
         body.admin-mode .admin-section { display: block !important; }
-        
         .no-select { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-
         #security-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 100000;
-            justify-content: center; align-items: center; text-align: center;
+            background: rgba(0,0,0,0.95); z-index: 100000; justify-content: center; align-items: center; text-align: center;
         }
-
         @media print { body { display: none !important; } }
     </style>
 </head>
@@ -47,7 +35,6 @@
     <div id="auth-page" class="bg-zinc-950 p-6">
         <div class="max-w-md w-full bg-zinc-900 p-10 rounded-[2.5rem] border border-zinc-800 shadow-2xl">
             <h1 class="text-4xl font-black text-red-600 text-center mb-10 italic uppercase tracking-tighter">Vinay Writes</h1>
-            
             <div id="login-form-div">
                 <form id="login-form" class="space-y-5">
                     <input type="text" id="login-name" placeholder="Name" class="w-full p-4 rounded-2xl bg-black border border-zinc-800 outline-none focus:border-red-600 transition text-white" required>
@@ -56,7 +43,6 @@
                 </form>
                 <p class="text-center mt-8 text-zinc-500 text-sm italic">New reader? <button onclick="toggleAuthForms()" class="text-red-500 font-bold underline">Register here</button></p>
             </div>
-
             <div id="register-form-div" class="hidden">
                 <form id="register-form" class="space-y-4">
                     <input type="text" id="reg-name" placeholder="Full Name" class="w-full p-4 rounded-xl bg-black border border-zinc-800 outline-none focus:border-red-600 text-white" required>
@@ -80,7 +66,8 @@
             <h1 class="text-2xl font-bold text-red-500 cursor-pointer" onclick="showHome()">Vinay Writes</h1>
             <div class="flex items-center gap-4">
                 <button onclick="logout()" class="text-zinc-500 text-xs font-bold uppercase tracking-widest hover:text-white transition">Logout</button>
-                <button id="view-toggle" onclick="toggleAdmin()" class="bg-zinc-800 px-4 py-2 rounded-full text-xs font-bold border border-zinc-700 uppercase">Admin Login</button>
+                <!-- Admin login button hidden untundi, secret hotkey press chesthene temporary ga reveal avtundi -->
+                <button id="view-toggle" onclick="toggleAdmin()" class="hidden bg-zinc-800 px-4 py-2 rounded-full text-xs font-bold border border-zinc-700 uppercase">LOGOUT ADMIN</button>
             </div>
         </nav>
 
@@ -89,7 +76,6 @@
             <header class="user-view-only pt-32 pb-20 px-6 text-center bg-gradient-to-b from-zinc-900 to-black">
                 <h2 id="welcome-user" class="text-red-500 font-bold tracking-[0.3em] mb-6 uppercase text-sm">Welcome Reader</h2>
                 <h1 class="text-6xl md:text-8xl font-black mb-8 leading-tight uppercase italic text-white">Stories That <br><span class="text-red-600">Hit Different.</span></h1>
-                
                 <div class="flex flex-col items-center gap-6 mt-10">
                     <h3 class="text-2xl font-black uppercase tracking-widest italic text-zinc-400">Read My Stories</h3>
                     <div class="flex flex-wrap justify-center gap-4">
@@ -164,13 +150,12 @@
     <script>
         let isAdmin = false;
         let currentUser = null;
-        let currentFilter = 'None'; // Current selection store cheskovadaniki
+        let currentFilter = 'None'; 
         let registeredUsers = JSON.parse(localStorage.getItem('vinay_site_users')) || [];
         let stories = JSON.parse(localStorage.getItem('vinay_vfinal_v6')) || [];
         let comments = JSON.parse(localStorage.getItem('vinay_vfinal_comments')) || {};
         let currentStoryIndex = -1;
 
-        // AUTH FUNCTIONS
         function toggleAuthForms() {
             document.getElementById('login-form-div').classList.toggle('hidden');
             document.getElementById('register-form-div').classList.toggle('hidden');
@@ -181,16 +166,12 @@
             const name = document.getElementById('reg-name').value.trim();
             const pass = document.getElementById('reg-pass').value;
             const repass = document.getElementById('reg-repass').value;
-
             if(pass !== repass) { alert("Passwords do not match!"); return; }
             if(registeredUsers.find(u => u.name.toLowerCase() === name.toLowerCase())) { alert("User already exists!"); return; }
-
             const newUser = { 
-                name, 
-                age: document.getElementById('reg-age').value,
+                name, age: document.getElementById('reg-age').value,
                 city: document.getElementById('reg-city').value,
-                email: document.getElementById('reg-email').value,
-                pass 
+                email: document.getElementById('reg-email').value, pass 
             };
             registeredUsers.push(newUser);
             localStorage.setItem('vinay_site_users', JSON.stringify(registeredUsers));
@@ -202,7 +183,6 @@
             e.preventDefault();
             const name = document.getElementById('login-name').value.trim();
             const pass = document.getElementById('login-pass').value;
-
             const user = registeredUsers.find(u => u.name.toLowerCase() === name.toLowerCase() && u.pass === pass);
             if(user) {
                 currentUser = user;
@@ -219,29 +199,45 @@
             currentUser = null;
             isAdmin = false;
             document.body.classList.remove('admin-mode');
-            document.getElementById('view-toggle').innerText = "ADMIN LOGIN";
+            document.getElementById('view-toggle').classList.add('hidden');
             document.getElementById('main-content').classList.add('hidden');
             document.getElementById('auth-page').classList.remove('hidden');
         }
 
-        // CONTENT FUNCTIONS
+        // SECRET ADMIN BACKDOOR: Dashboard loki login ayyaka, keyboard meeda 'Ctrl + Shift + A' press cheyali
+        window.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
+                e.preventDefault(); 
+                if (document.getElementById('main-content').classList.contains('hidden')) return;
+                triggerAdminLogin();
+            }
+        });
+
+        function triggerAdminLogin() {
+            const inputPass = prompt("Enter Master Admin Key:");
+            if(inputPass === "vinay123") { 
+                isAdmin = true;
+                document.body.classList.add('admin-mode');
+                const toggleBtn = document.getElementById('view-toggle');
+                toggleBtn.classList.remove('hidden');
+                alert("Welcome Back, Vinay!");
+                renderStories(currentFilter);
+            } else if (inputPass !== null) {
+                alert("Access Denied.");
+            }
+        }
+
         function toggleAdmin() {
-            if(!isAdmin) {
-                if(prompt("Admin Password:") === "vinay123") {
-                    isAdmin = true;
-                    document.body.classList.add('admin-mode');
-                    document.getElementById('view-toggle').innerText = "LOGOUT ADMIN";
-                }
-            } else {
+            if(isAdmin) {
                 isAdmin = false;
                 document.body.classList.remove('admin-mode');
-                document.getElementById('view-toggle').innerText = "ADMIN LOGIN";
+                document.getElementById('view-toggle').classList.add('hidden');
+                renderStories(currentFilter);
             }
-            renderStories(currentFilter);
         }
 
         function renderStories(filter = 'None') {
-            currentFilter = filter; // global filter sync
+            currentFilter = filter; 
             const userGrid = document.getElementById('story-grid');
             const adminContainer = document.getElementById('admin-lists-container');
             
@@ -299,10 +295,7 @@
             const title = document.getElementById('current-story-title').innerText; 
             if(!ti.value.trim()) return; 
             if(!comments[title]) comments[title] = []; 
-            
-            // Fixed: Safely check if currentUser exists to prevent crash
             const userName = currentUser ? currentUser.name : "Admin"; 
-            
             comments[title].push({ text: ti.value, date: new Date().toLocaleDateString(), user: userName }); 
             localStorage.setItem('vinay_vfinal_comments', JSON.stringify(comments)); 
             loadComments(title); 
@@ -312,7 +305,7 @@
         function showHome() { 
             document.getElementById('details-page').classList.remove('active'); 
             document.getElementById('home-page').classList.add('active'); 
-            renderStories(currentFilter); // Fixed: Instead of 'None', loads the selected tab scripts
+            renderStories(currentFilter); 
         }
         
         function deleteStory(idx) { if(confirm("Delete story?")) { stories.splice(idx, 1); localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories)); renderStories(currentFilter); } }
