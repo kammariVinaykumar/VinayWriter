@@ -11,43 +11,37 @@
         body.admin-mode .user-view-only { display: none !important; }
         .admin-section { display: none; }
         body.admin-mode .admin-section { display: block !important; }
-        .writer-reply { border-left: 4px solid #ef4444; background: #18181b; padding: 15px; border-radius: 12px; margin-top: 10px; margin-left: 20px; }
         
-        .no-select {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
+        /* THE ULTIMATE SECURITY: Content is hidden by default */
+        #story-body {
+            filter: blur(40px);
+            opacity: 0.1;
+            transition: all 0.2s ease;
             user-select: none;
         }
 
-        /* SECURITY OVERLAY - PURE BLACK */
+        /* Content ONLY reveals when mouse is ACTIVELY MOVING over it */
+        /* This breaks most static screenshot tools */
+        #details-content:hover #story-body {
+            filter: blur(0px);
+            opacity: 1;
+        }
+
         #security-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000 !important;
-            z-index: 999999;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 100000;
+            justify-content: center; align-items: center;
         }
 
-        @media print {
-            body { display: none !important; }
-        }
+        @media print { body { display: none !important; } }
     </style>
 </head>
-<body class="bg-black text-white font-sans selection:bg-red-500 no-select" oncontextmenu="return false;">
+<body class="bg-black text-white font-sans selection:bg-none" oncontextmenu="return false;">
 
     <div id="security-overlay">
-        <div>
-            <h2 class="text-4xl font-black text-red-600 mb-4 uppercase italic">Security Alert</h2>
-            <p class="text-zinc-400 font-bold">Screen capture detected. Content hidden.</p>
-            <p class="text-xs mt-6 text-zinc-700 uppercase tracking-widest text-white">Click back on the page to continue</p>
-        </div>
+        <h2 class="text-3xl font-black text-red-600 uppercase italic">Security Shield Active</h2>
     </div>
 
     <nav class="p-5 flex justify-between items-center bg-zinc-900 sticky top-0 z-50 border-b border-zinc-800">
@@ -60,7 +54,7 @@
             <h2 class="text-red-500 font-bold tracking-[0.3em] mb-6 uppercase text-sm">Telugu Screenplay Writer</h2>
             <h1 class="text-6xl md:text-8xl font-black mb-8 leading-tight uppercase italic text-white">Stories That <br><span class="text-red-600">Hit Different.</span></h1>
             
-            <div class="flex flex-col items-center gap-6 mt-10">
+            <div class="flex flex-col items-center gap-6 mt-10 text-white">
                 <h3 class="text-2xl font-black uppercase tracking-widest italic text-zinc-400">Read My Stories</h3>
                 <div class="flex flex-wrap justify-center gap-4">
                     <button onclick="renderStories('Short Film Stories')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase">Short Film Stories</button>
@@ -75,16 +69,16 @@
         </section>
 
         <footer class="user-view-only py-32 px-6 bg-orange-600">
-            <div class="max-w-5xl mx-auto text-center">
-                <h3 class="text-5xl md:text-7xl font-black mb-8 italic uppercase text-white">Let's Collaborate.</h3>
+            <div class="max-w-5xl mx-auto text-center text-white">
+                <h3 class="text-5xl md:text-7xl font-black mb-8 italic uppercase">Let's Collaborate.</h3>
                 <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                     <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black">
                         <span class="text-orange-500 font-black uppercase text-[10px] mb-3 block">Email</span>
-                        <a href="mailto:kammarivinaykumar981@gmail.com" class="text-lg md:text-xl font-bold text-white">kammarivinaykumar981@gmail.com</a>
+                        <a href="mailto:kammarivinaykumar981@gmail.com" class="text-lg md:text-xl font-bold">kammarivinaykumar981@gmail.com</a>
                     </div>
                     <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black">
                         <span class="text-green-500 font-black uppercase text-[10px] mb-3 block">WhatsApp</span>
-                        <a href="https://wa.me/917981587505" target="_blank" class="text-2xl md:text-3xl font-bold text-white">+91 79815 87505</a>
+                        <a href="https://wa.me/917981587505" target="_blank" class="text-2xl md:text-3xl font-bold">+91 79815 87505</a>
                     </div>
                 </div>
             </div>
@@ -96,13 +90,13 @@
                 <form id="story-form" class="space-y-6">
                     <input type="hidden" id="edit-index" value="-1">
                     <input type="text" id="title" placeholder="Story Title" class="w-full p-5 rounded-2xl bg-zinc-900 border border-zinc-800 text-white outline-none font-bold" required>
-                    <select id="category" class="w-full p-5 rounded-2xl bg-zinc-900 border border-zinc-800 text-white outline-none font-bold text-white" required>
+                    <select id="category" class="w-full p-5 rounded-2xl bg-zinc-900 border border-zinc-800 text-white outline-none font-bold" required>
                         <option value="">Choose Category...</option>
                         <option value="Short Film Stories">Short Film Stories</option>
                         <option value="Movie Scenes">Movie Scenes</option>
                         <option value="Serial Content">Serial Content</option>
                     </select>
-                    <textarea id="fullStory" placeholder="Full script content..." class="w-full p-5 h-80 rounded-2xl bg-zinc-900 border border-zinc-800 text-white outline-none text-white"></textarea>
+                    <textarea id="fullStory" placeholder="Full script content..." class="w-full p-5 h-80 rounded-2xl bg-zinc-900 border border-zinc-800 text-white outline-none"></textarea>
                     <button type="submit" id="submit-btn" class="w-full bg-red-600 py-5 rounded-2xl font-black text-xl hover:bg-red-700 transition uppercase text-white">Publish Story</button>
                 </form>
             </div>
@@ -111,8 +105,8 @@
     </div>
 
     <div id="details-page" class="page p-6 md:p-20 bg-black min-h-screen">
-        <button onclick="showHome()" class="text-red-500 mb-10 font-bold uppercase tracking-widest">← BACK</button>
-        <div id="details-content" class="max-w-4xl mx-auto text-white"></div>
+        <button onclick="showHome()" class="text-red-500 mb-10 font-bold uppercase tracking-widest text-white">← BACK</button>
+        <div id="details-content" class="max-w-4xl mx-auto border border-zinc-900 p-10 rounded-3xl"></div>
         
         <div class="max-w-4xl mx-auto mt-10 text-center">
             <button id="like-btn" onclick="toggleLike()" class="bg-zinc-900 border border-zinc-700 px-8 py-3 rounded-full text-white font-bold hover:bg-red-600 transition flex items-center gap-3 mx-auto">
@@ -122,7 +116,7 @@
 
         <div class="max-w-4xl mx-auto mt-20 border-t border-zinc-900 pt-10 text-white">
             <h3 class="text-2xl font-bold mb-8 text-red-500 italic uppercase">Feedbacks</h3>
-            <div id="comment-list" class="space-y-6 mb-10 text-white"></div>
+            <div id="comment-list" class="space-y-6 mb-10"></div>
             <div class="bg-zinc-900 p-8 rounded-[2rem]">
                 <textarea id="user-comment" placeholder="Write feedback here..." class="w-full p-5 rounded-2xl bg-zinc-800 border border-zinc-700 mb-4 h-32 outline-none text-white"></textarea>
                 <button onclick="postComment()" class="bg-red-600 px-12 py-4 rounded-2xl font-bold uppercase tracking-widest text-white">Post Feedback</button>
@@ -154,31 +148,20 @@
         function renderStories(filter = 'None') {
             const userGrid = document.getElementById('story-grid');
             const adminContainer = document.getElementById('admin-lists-container');
-            
-            const createCard = (s, globalIndex) => `
-                <div class="bg-zinc-900 border border-zinc-800 rounded-[2.5rem] p-10 relative hover:border-red-600 transition-all duration-500">
+            const createCard = (s, idx) => `
+                <div class="bg-zinc-900 border border-zinc-800 rounded-[2.5rem] p-10 relative">
                     <div class="absolute top-4 left-4 text-[10px] bg-red-600 px-2 py-1 rounded-full font-bold">❤️ ${s.likes || 0}</div>
-                    ${isAdmin ? `
-                        <div class="absolute top-4 right-4 flex gap-2 text-white">
-                            <button onclick="editStory(${globalIndex})" class="bg-blue-600 p-1 px-2 rounded-full text-[8px] font-black uppercase text-white">Edit</button>
-                            <button onclick="deleteStory(${globalIndex})" class="bg-red-600 p-1 px-2 rounded-full text-[8px] font-black uppercase text-white">Del</button>
-                        </div>
-                    ` : ''}
+                    ${isAdmin ? `<div class="absolute top-4 right-4 flex gap-2"><button onclick="editStory(${idx})" class="bg-blue-600 p-1 px-2 rounded-full text-[8px] font-black uppercase">Edit</button><button onclick="deleteStory(${idx})" class="bg-red-600 p-1 px-2 rounded-full text-[8px] font-black uppercase">Del</button></div>` : ''}
                     <span class="text-red-500 text-[10px] font-black uppercase tracking-widest mb-4 block">${s.category}</span>
-                    <h3 class="text-3xl font-black mb-8 uppercase italic text-white leading-tight">${s.title}</h3>
-                    <button onclick="showDetails(${globalIndex})" class="w-full border border-zinc-700 py-4 rounded-2xl font-black uppercase hover:bg-red-600 transition text-sm text-white">Read Script</button>
+                    <h3 class="text-3xl font-black mb-8 uppercase italic text-white">${s.title}</h3>
+                    <button onclick="showDetails(${idx})" class="w-full border border-zinc-700 py-4 rounded-2xl font-black uppercase hover:bg-red-600 transition text-sm text-white">Read Script</button>
                 </div>`;
-
             if(isAdmin) {
                 const cats = ['Short Film Stories', 'Movie Scenes', 'Serial Content'];
-                adminContainer.innerHTML = cats.map(cat => `
-                    <div>
-                        <h3 class="text-3xl font-black mb-8 border-b-4 border-red-600 pb-2 uppercase italic text-white">${cat}</h3>
-                        <div class="grid md:grid-cols-3 gap-8 text-white">${stories.filter(s => s.category === cat).map(s => createCard(s, stories.indexOf(s))).join('')}</div>
-                    </div>`).join('');
+                adminContainer.innerHTML = cats.map(cat => `<div class="mb-10"><h3 class="text-3xl font-black text-white mb-8 border-b-4 border-red-600 pb-2 uppercase italic">${cat}</h3><div class="grid md:grid-cols-3 gap-8">${stories.filter(s => s.category === cat).map(s => createCard(s, stories.indexOf(s))).join('')}</div></div>`).join('');
             } else {
                 if(filter === 'None') { userGrid.innerHTML = ""; return; }
-                userGrid.innerHTML = stories.filter(s => !s.hidden && s.category === filter).map(s => createCard(s, stories.indexOf(s))).join('') || `<p class="col-span-full text-zinc-500 uppercase text-center py-10">No scripts found.</p>`;
+                userGrid.innerHTML = stories.filter(s => !s.hidden && s.category === filter).map(s => createCard(s, stories.indexOf(s))).join('') || `<p class="col-span-full text-center text-zinc-500 py-10">No scripts here yet.</p>`;
                 window.scrollTo({ top: userGrid.offsetTop - 100, behavior: 'smooth' });
             }
         }
@@ -190,6 +173,7 @@
             document.getElementById('details-page').classList.add('active');
             document.getElementById('details-content').innerHTML = `
                 <h1 id="current-story-title" class="text-5xl md:text-7xl font-black mb-12 uppercase italic underline decoration-red-600 decoration-8 text-white">${s.title}</h1>
+                <p class="text-red-500 font-bold mb-4 animate-pulse uppercase tracking-widest text-[10px]">Move mouse over text to read</p>
                 <div id="story-body" class="text-zinc-300 text-xl leading-relaxed whitespace-pre-line font-medium text-white">${s.story}</div>
             `;
             document.getElementById('like-count').innerText = s.likes || 0;
@@ -209,70 +193,49 @@
 
         function loadComments(title) {
             const list = document.getElementById('comment-list');
-            const storyComments = comments[title] || [];
-            list.innerHTML = storyComments.map(c => `
-                <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 text-white">
-                    <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest text-white">Feedback</span>
-                    <p class="text-zinc-200 mt-2 text-lg font-medium text-white">${c.text}</p>
-                </div>`).join('') || `<p class="text-zinc-600 uppercase text-xs text-white">No feedback yet.</p>`;
+            const sc = comments[title] || [];
+            list.innerHTML = sc.map(c => `<div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 text-white"><span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest">Feedback</span><p class="text-zinc-200 mt-2 text-lg font-medium">${c.text}</p></div>`).join('') || `<p class="text-zinc-600 uppercase text-xs">No feedback yet.</p>`;
         }
 
         function postComment() {
-            const textInput = document.getElementById('user-comment');
+            const ti = document.getElementById('user-comment');
             const title = document.getElementById('current-story-title').innerText;
-            if(!textInput.value.trim()) return;
+            if(!ti.value.trim()) return;
             if(!comments[title]) comments[title] = [];
-            comments[title].push({ text: textInput.value, date: new Date().toLocaleDateString() });
+            comments[title].push({ text: ti.value, date: new Date().toLocaleDateString() });
             localStorage.setItem('vinay_vfinal_comments', JSON.stringify(comments));
             loadComments(title);
-            textInput.value = "";
+            ti.value = "";
         }
 
         function showHome() { document.getElementById('details-page').classList.remove('active'); document.getElementById('home-page').classList.add('active'); renderStories('None'); }
-        function deleteStory(index) { stories.splice(index, 1); localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories)); renderStories('All'); }
-        function editStory(index) {
-            const s = stories[index];
-            document.getElementById('edit-index').value = index;
-            document.getElementById('title').value = s.title;
-            document.getElementById('category').value = s.category;
-            document.getElementById('fullStory').value = s.story;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        function deleteStory(idx) { stories.splice(idx, 1); localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories)); renderStories('All'); }
+        function editStory(idx) { const s = stories[idx]; document.getElementById('edit-index').value = idx; document.getElementById('title').value = s.title; document.getElementById('category').value = s.category; document.getElementById('fullStory').value = s.story; window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
         document.getElementById('story-form').onsubmit = function(e) {
             e.preventDefault();
-            const index = parseInt(document.getElementById('edit-index').value);
-            const newData = { title: document.getElementById('title').value, category: document.getElementById('category').value, story: document.getElementById('fullStory').value, likes: index !== -1 ? stories[index].likes : 0, isLiked: index !== -1 ? stories[index].isLiked : false };
-            stories[index === -1 ? stories.length : index] = newData;
+            const idx = parseInt(document.getElementById('edit-index').value);
+            const newData = { title: document.getElementById('title').value, category: document.getElementById('category').value, story: document.getElementById('fullStory').value, likes: idx !== -1 ? stories[idx].likes : 0, isLiked: idx !== -1 ? stories[idx].isLiked : false };
+            if(idx === -1) stories.push(newData); else stories[idx] = newData;
             localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories));
             document.getElementById('story-form').reset();
             renderStories('All');
         };
 
-        renderStories('None');
-
-        // AGGRESSIVE SECURITY LOGIC
-        // This will trigger as soon as Snipping Tool (+) or focus loss starts
+        // Aggressive Alert Blocking
         const secure = () => document.getElementById('security-overlay').style.display = 'flex';
         const unsecure = () => document.getElementById('security-overlay').style.display = 'none';
-
-        // 1. Detect Focus Loss (When Snipping Tool takes control)
+        
         window.addEventListener('blur', secure);
         window.addEventListener('focus', unsecure);
-        
-        // 2. Detect Tab Visibility
-        document.addEventListener("visibilitychange", () => {
-            if (document.hidden) secure(); else unsecure();
-        });
-
-        // 3. Detect Key Combinations (Win+Shift+S or PrtSc)
         document.addEventListener('keydown', (e) => {
             if (e.key === 'PrintScreen' || e.keyCode === 44 || (e.shiftKey && (e.metaKey || e.ctrlKey))) {
                 secure();
-                // Alert stops the execution and forces the browser to render the black screen
-                setTimeout(() => { alert("Screen Capture Blocked."); }, 10);
+                setTimeout(() => { alert("Screenshot Blocked."); }, 10);
             }
         });
+
+        renderStories('None');
     </script>
 </body>
 </html>
