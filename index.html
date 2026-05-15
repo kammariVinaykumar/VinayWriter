@@ -32,32 +32,32 @@
         </div>
     </div>
 
-    <div id="auth-page" class="page active min-h-screen flex items-center justify-center bg-zinc-950 p-6">
+    <div id="auth-page" class="page active min-h-screen w-full flex items-center justify-center bg-zinc-950 p-6">
         <div class="max-w-md w-full bg-zinc-900 p-10 rounded-[2.5rem] border border-zinc-800 shadow-2xl">
-            <h1 class="text-4xl font-black text-red-600 text-center mb-8 italic uppercase tracking-tighter">Vinay Writes</h1>
+            <h1 class="text-4xl font-black text-red-600 text-center mb-10 italic uppercase tracking-tighter">Vinay Writes</h1>
             
             <div id="login-form-div">
-                <form id="login-form" class="space-y-4">
-                    <input type="text" id="login-name" placeholder="Name" class="w-full p-4 rounded-2xl bg-black border border-zinc-800 outline-none focus:border-red-600 transition" required>
-                    <input type="password" id="login-pass" placeholder="Password" class="w-full p-4 rounded-2xl bg-black border border-zinc-800 outline-none focus:border-red-600 transition" required>
-                    <button type="submit" class="w-full bg-red-600 py-4 rounded-2xl font-black uppercase hover:bg-red-700 transition">Login</button>
+                <form id="login-form" class="space-y-5">
+                    <input type="text" id="login-name" placeholder="Name" class="w-full p-4 rounded-2xl bg-black border border-zinc-800 outline-none focus:border-red-600 transition text-white" required>
+                    <input type="password" id="login-pass" placeholder="Password" class="w-full p-4 rounded-2xl bg-black border border-zinc-800 outline-none focus:border-red-600 transition text-white" required>
+                    <button type="submit" class="w-full bg-red-600 py-4 rounded-2xl font-black uppercase hover:bg-red-700 transition tracking-widest">Login</button>
                 </form>
-                <p class="text-center mt-6 text-zinc-500 text-sm">New reader? <button onclick="toggleAuthForms()" class="text-red-500 font-bold">Register here</button></p>
+                <p class="text-center mt-8 text-zinc-500 text-sm italic">New reader? <button onclick="toggleAuthForms()" class="text-red-500 font-bold underline">Register here</button></p>
             </div>
 
             <div id="register-form-div" class="hidden">
                 <form id="register-form" class="space-y-4">
-                    <input type="text" id="reg-name" placeholder="Full Name" class="w-full p-4 rounded-xl bg-black border border-zinc-800" required>
+                    <input type="text" id="reg-name" placeholder="Full Name" class="w-full p-4 rounded-xl bg-black border border-zinc-800 outline-none focus:border-red-600 text-white" required>
                     <div class="flex gap-2">
-                        <input type="number" id="reg-age" placeholder="Age" class="w-1/2 p-4 rounded-xl bg-black border border-zinc-800" required>
-                        <input type="text" id="reg-city" placeholder="City" class="w-1/2 p-4 rounded-xl bg-black border border-zinc-800" required>
+                        <input type="number" id="reg-age" placeholder="Age" class="w-1/2 p-4 rounded-xl bg-black border border-zinc-800 outline-none focus:border-red-600 text-white" required>
+                        <input type="text" id="reg-city" placeholder="City" class="w-1/2 p-4 rounded-xl bg-black border border-zinc-800 outline-none focus:border-red-600 text-white" required>
                     </div>
-                    <input type="email" id="reg-email" placeholder="Email Address" class="w-full p-4 rounded-xl bg-black border border-zinc-800" required>
-                    <input type="password" id="reg-pass" placeholder="Create Password" class="w-full p-4 rounded-xl bg-black border border-zinc-800" required>
-                    <input type="password" id="reg-repass" placeholder="Re-enter Password" class="w-full p-4 rounded-xl bg-black border border-zinc-800" required>
-                    <button type="submit" class="w-full bg-red-600 py-4 rounded-xl font-black uppercase hover:bg-red-700 transition">Create Account</button>
+                    <input type="email" id="reg-email" placeholder="Email Address" class="w-full p-4 rounded-xl bg-black border border-zinc-800 outline-none focus:border-red-600 text-white" required>
+                    <input type="password" id="reg-pass" placeholder="Create Password" class="w-full p-4 rounded-xl bg-black border border-zinc-800 outline-none focus:border-red-600 text-white" required>
+                    <input type="password" id="reg-repass" placeholder="Re-enter Password" class="w-full p-4 rounded-xl bg-black border border-zinc-800 outline-none focus:border-red-600 text-white" required>
+                    <button type="submit" class="w-full bg-red-600 py-4 rounded-xl font-black uppercase hover:bg-red-700 transition tracking-widest mt-4">Create Account</button>
                 </form>
-                <p class="text-center mt-6 text-zinc-500 text-sm">Already have account? <button onclick="toggleAuthForms()" class="text-red-500 font-bold">Login</button></p>
+                <p class="text-center mt-8 text-zinc-500 text-sm italic">Already have account? <button onclick="toggleAuthForms()" class="text-red-500 font-bold underline">Login</button></p>
             </div>
         </div>
     </div>
@@ -66,8 +66,8 @@
         <nav class="p-5 flex justify-between items-center bg-zinc-900 sticky top-0 z-50 border-b border-zinc-800">
             <h1 class="text-2xl font-bold text-red-500 cursor-pointer" onclick="showHome()">Vinay Writes</h1>
             <div class="flex items-center gap-4">
-                <button onclick="logout()" class="text-zinc-500 text-xs font-bold uppercase tracking-widest hover:text-white">Logout</button>
-                <button id="view-toggle" onclick="toggleAdmin()" class="bg-zinc-800 px-4 py-2 rounded-full text-xs font-bold border border-zinc-700 uppercase">Admin Login</button>
+                <button onclick="logout()" class="text-zinc-500 text-xs font-bold uppercase tracking-widest hover:text-white transition">Logout</button>
+                <button id="view-toggle" onclick="toggleAdmin()" class="bg-zinc-800 px-4 py-2 rounded-full text-xs font-bold border border-zinc-700 uppercase hover:bg-red-600 transition">Admin Login</button>
             </div>
         </nav>
 
@@ -90,9 +90,9 @@
                 <div id="story-grid" class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8"></div>
             </section>
 
-            <footer class="user-view-only py-32 px-6 bg-orange-600">
+            <footer class="user-view-only py-32 px-6 bg-orange-600 text-white">
                 <div class="max-w-5xl mx-auto text-center">
-                    <h3 class="text-5xl md:text-7xl font-black mb-8 italic uppercase text-white">Let's Collaborate.</h3>
+                    <h3 class="text-5xl md:text-7xl font-black mb-8 italic uppercase">Let's Collaborate.</h3>
                     <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                         <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black">
                             <span class="text-orange-500 font-black uppercase text-[10px] mb-3 block">Email</span>
@@ -127,7 +127,7 @@
         </div>
 
         <div id="details-page" class="page p-6 md:p-20 bg-black min-h-screen">
-            <button onclick="showHome()" class="text-red-500 mb-10 font-bold uppercase tracking-widest text-white">← BACK</button>
+            <button onclick="showHome()" class="text-red-500 mb-10 font-bold uppercase tracking-widest">← BACK</button>
             <div id="details-content" class="max-w-4xl mx-auto text-white"></div>
             <div class="max-w-4xl mx-auto mt-10 text-center">
                 <button id="like-btn" onclick="toggleLike()" class="bg-zinc-900 border border-zinc-700 px-8 py-3 rounded-full text-white font-bold hover:bg-red-600 transition flex items-center gap-3 mx-auto">
@@ -139,7 +139,7 @@
                 <div id="comment-list" class="space-y-6 mb-10"></div>
                 <div class="bg-zinc-900 p-8 rounded-[2rem]">
                     <textarea id="user-comment" placeholder="Write feedback here..." class="w-full p-5 rounded-2xl bg-zinc-800 border border-zinc-700 mb-4 h-32 outline-none text-white"></textarea>
-                    <button onclick="postComment()" class="bg-red-600 px-12 py-4 rounded-2xl font-bold uppercase tracking-widest">Post Feedback</button>
+                    <button onclick="postComment()" class="bg-red-600 px-12 py-4 rounded-2xl font-bold uppercase tracking-widest text-white">Post Feedback</button>
                 </div>
             </div>
         </div>
@@ -153,7 +153,6 @@
         let comments = JSON.parse(localStorage.getItem('vinay_vfinal_comments')) || {};
         let currentStoryIndex = -1;
 
-        // AUTH LOGIC
         function toggleAuthForms() {
             document.getElementById('login-form-div').classList.toggle('hidden');
             document.getElementById('register-form-div').classList.toggle('hidden');
@@ -169,12 +168,12 @@
             const repass = document.getElementById('reg-repass').value;
 
             if(pass !== repass) { alert("Passwords do not match!"); return; }
-            if(registeredUsers.find(u => u.name === name)) { alert("User already exists!"); return; }
+            if(registeredUsers.find(u => u.name === name)) { alert("User with this name already exists!"); return; }
 
             const newUser = { name, age, city, email, pass };
             registeredUsers.push(newUser);
             localStorage.setItem('vinay_site_users', JSON.stringify(registeredUsers));
-            alert("Registration Successful! Please Login.");
+            alert("Account Created Successfully! Please Login.");
             toggleAuthForms();
         };
 
@@ -191,7 +190,7 @@
                 document.getElementById('welcome-user').innerText = `Welcome, ${user.name}`;
                 renderStories('None');
             } else {
-                alert("Invalid Credentials!");
+                alert("Invalid Name or Password!");
             }
         };
 
@@ -202,7 +201,6 @@
             document.getElementById('login-form').reset();
         }
 
-        // PREVIOUS LOGIC (RETAINED)
         function toggleAdmin() {
             if(!isAdmin) {
                 if(prompt("Admin Password:") === "vinay123") {
@@ -238,12 +236,11 @@
 
             if(isAdmin) {
                 const cats = ['Short Film Stories', 'Movie Scenes', 'Serial Content'];
-                adminContainer.innerHTML = cats.map(cat => `
-                    <div class="mb-10"><h3 class="text-3xl font-black text-white mb-8 border-b-4 border-red-600 pb-2 uppercase italic">${cat}</h3>
-                    <div class="grid md:grid-cols-3 gap-8">${stories.filter(s => s.category === cat).map(s => createCard(s, stories.indexOf(s))).join('')}</div></div>`).join('');
+                adminContainer.innerHTML = cats.map(cat => `<div class="mb-10 text-white"><h3 class="text-3xl font-black mb-8 border-b-4 border-red-600 pb-2 uppercase italic">${cat}</h3>
+                <div class="grid md:grid-cols-3 gap-8">${stories.filter(s => s.category === cat).map(s => createCard(s, stories.indexOf(s))).join('')}</div></div>`).join('');
             } else {
                 if(filter === 'None') { userGrid.innerHTML = ""; return; }
-                userGrid.innerHTML = stories.filter(s => !s.hidden && s.category === filter).map(s => createCard(s, stories.indexOf(s))).join('') || `<p class="col-span-full text-center text-zinc-500 py-10">Select a category to begin.</p>`;
+                userGrid.innerHTML = stories.filter(s => !s.hidden && s.category === filter).map(s => createCard(s, stories.indexOf(s))).join('') || `<p class="col-span-full text-center text-zinc-500 py-10">Select a category to explore.</p>`;
                 window.scrollTo({ top: userGrid.offsetTop - 100, behavior: 'smooth' });
             }
         }
@@ -278,7 +275,7 @@
         function loadComments(title) {
             const list = document.getElementById('comment-list');
             const sc = comments[title] || [];
-            list.innerHTML = sc.map((c, idx) => `<div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 flex justify-between items-start text-white"><div><span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest">Feedback by ${c.user || 'Guest'}</span><p class="text-zinc-200 mt-2 text-lg font-medium">${c.text}</p></div>${isAdmin ? `<button onclick="removeComment('${title}', ${idx})" class="bg-red-900/50 text-red-500 px-3 py-1 rounded-full text-[10px] font-bold border border-red-500/30 uppercase text-white">Remove</button>` : ''}</div>`).join('') || `<p class="text-zinc-600 uppercase text-xs">No feedback yet.</p>`;
+            list.innerHTML = sc.map((c, idx) => `<div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 flex justify-between items-start text-white"><div><span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest">Feedback by ${c.user || 'Guest'}</span><p class="text-zinc-200 mt-2 text-lg font-medium">${c.text}</p></div>${isAdmin ? `<button onclick="removeComment('${title}', ${idx})" class="bg-red-900/50 text-red-500 px-3 py-1 rounded-full text-[10px] font-bold border border-red-500/30 uppercase">Remove</button>` : ''}</div>`).join('') || `<p class="text-zinc-600 uppercase text-xs">No feedback yet.</p>`;
         }
 
         function removeComment(title, idx) {
