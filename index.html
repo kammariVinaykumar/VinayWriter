@@ -12,17 +12,10 @@
         .admin-section { display: none; }
         body.admin-mode .admin-section { display: block !important; }
         
-        .no-select {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
+        .no-select { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
 
         #security-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); z-index: 100000;
             justify-content: center; align-items: center; text-align: center;
         }
@@ -34,97 +27,182 @@
 
     <div id="security-overlay">
         <div>
-            <h2 class="text-3xl font-black text-red-600 uppercase italic text-white">Security Alert</h2>
+            <h2 class="text-3xl font-black text-red-600 uppercase italic">Security Alert</h2>
             <p class="text-zinc-400">Content hidden to protect scripts.</p>
         </div>
     </div>
 
-    <nav class="p-5 flex justify-between items-center bg-zinc-900 sticky top-0 z-50 border-b border-zinc-800">
-        <h1 class="text-2xl font-bold text-red-500 cursor-pointer" onclick="showHome()">Vinay Writes</h1>
-        <button id="view-toggle" onclick="toggleAdmin()" class="bg-zinc-800 px-4 py-2 rounded-full text-xs font-bold border border-zinc-700 uppercase">Admin Login</button>
-    </nav>
-
-    <div id="home-page" class="page active">
-        <header class="user-view-only pt-32 pb-20 px-6 text-center bg-gradient-to-b from-zinc-900 to-black">
-            <h2 class="text-red-500 font-bold tracking-[0.3em] mb-6 uppercase text-sm">Telugu Screenplay Writer</h2>
-            <h1 class="text-6xl md:text-8xl font-black mb-8 leading-tight uppercase italic text-white">Stories That <br><span class="text-red-600">Hit Different.</span></h1>
+    <div id="auth-page" class="page active min-h-screen flex items-center justify-center bg-zinc-950 p-6">
+        <div class="max-w-md w-full bg-zinc-900 p-10 rounded-[2.5rem] border border-zinc-800 shadow-2xl">
+            <h1 class="text-4xl font-black text-red-600 text-center mb-8 italic uppercase tracking-tighter">Vinay Writes</h1>
             
-            <div class="flex flex-col items-center gap-6 mt-10">
-                <h3 class="text-2xl font-black uppercase tracking-widest italic text-zinc-400">Read My Stories</h3>
-                <div class="flex flex-wrap justify-center gap-4 text-white">
-                    <button onclick="renderStories('Short Film Stories')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase">Short Film Stories</button>
-                    <button onclick="renderStories('Movie Scenes')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase">Movie Scenes</button>
-                    <button onclick="renderStories('Serial Content')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase">Serial Content</button>
-                </div>
-            </div>
-        </header>
-
-        <section id="portfolio" class="user-view-only py-20 px-6 bg-black">
-            <div id="story-grid" class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8 text-white"></div>
-        </section>
-
-        <footer class="user-view-only py-32 px-6 bg-orange-600 text-white">
-            <div class="max-w-5xl mx-auto text-center text-white">
-                <h3 class="text-5xl md:text-7xl font-black mb-8 italic uppercase text-white">Let's Collaborate.</h3>
-                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto text-white">
-                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black text-white">
-                        <span class="text-orange-500 font-black uppercase text-[10px] mb-3 block tracking-widest text-white">Email</span>
-                        <a href="mailto:kammarivinaykumar981@gmail.com" class="text-lg md:text-xl font-bold text-white">kammarivinaykumar981@gmail.com</a>
-                    </div>
-                    <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black text-white">
-                        <span class="text-green-500 font-black uppercase text-[10px] mb-3 block tracking-widest text-white">WhatsApp</span>
-                        <a href="https://wa.me/917981587505" target="_blank" class="text-2xl md:text-3xl font-bold text-white">+91 79815 87505</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-        <section class="admin-section py-20 px-6 bg-zinc-900 min-h-screen text-white">
-            <div class="max-w-3xl mx-auto bg-black p-10 rounded-[3rem] border border-red-600 mb-20 shadow-2xl text-white">
-                <h2 id="form-title" class="text-3xl font-black text-red-500 mb-10 text-center uppercase italic text-white text-white">Post New Content</h2>
-                <form id="story-form" class="space-y-6">
-                    <input type="hidden" id="edit-index" value="-1">
-                    <input type="text" id="title" placeholder="Story Title" class="w-full p-5 rounded-2xl bg-zinc-900 border border-zinc-800 text-white outline-none font-bold" required>
-                    <select id="category" class="w-full p-5 rounded-2xl bg-zinc-900 border border-zinc-800 text-white outline-none font-bold text-white" required>
-                        <option value="">Choose Category...</option>
-                        <option value="Short Film Stories">Short Film Stories</option>
-                        <option value="Movie Scenes">Movie Scenes</option>
-                        <option value="Serial Content">Serial Content</option>
-                    </select>
-                    <textarea id="fullStory" placeholder="Full script content..." class="w-full p-5 h-80 rounded-2xl bg-zinc-900 border border-zinc-800 text-white outline-none text-white"></textarea>
-                    <button type="submit" id="submit-btn" class="w-full bg-red-600 py-5 rounded-2xl font-black text-xl hover:bg-red-700 transition uppercase text-white">Publish Story</button>
+            <div id="login-form-div">
+                <form id="login-form" class="space-y-4">
+                    <input type="text" id="login-name" placeholder="Name" class="w-full p-4 rounded-2xl bg-black border border-zinc-800 outline-none focus:border-red-600 transition" required>
+                    <input type="password" id="login-pass" placeholder="Password" class="w-full p-4 rounded-2xl bg-black border border-zinc-800 outline-none focus:border-red-600 transition" required>
+                    <button type="submit" class="w-full bg-red-600 py-4 rounded-2xl font-black uppercase hover:bg-red-700 transition">Login</button>
                 </form>
+                <p class="text-center mt-6 text-zinc-500 text-sm">New reader? <button onclick="toggleAuthForms()" class="text-red-500 font-bold">Register here</button></p>
             </div>
-            <div id="admin-lists-container" class="max-w-7xl mx-auto space-y-20 text-white"></div>
-        </section>
+
+            <div id="register-form-div" class="hidden">
+                <form id="register-form" class="space-y-4">
+                    <input type="text" id="reg-name" placeholder="Full Name" class="w-full p-4 rounded-xl bg-black border border-zinc-800" required>
+                    <div class="flex gap-2">
+                        <input type="number" id="reg-age" placeholder="Age" class="w-1/2 p-4 rounded-xl bg-black border border-zinc-800" required>
+                        <input type="text" id="reg-city" placeholder="City" class="w-1/2 p-4 rounded-xl bg-black border border-zinc-800" required>
+                    </div>
+                    <input type="email" id="reg-email" placeholder="Email Address" class="w-full p-4 rounded-xl bg-black border border-zinc-800" required>
+                    <input type="password" id="reg-pass" placeholder="Create Password" class="w-full p-4 rounded-xl bg-black border border-zinc-800" required>
+                    <input type="password" id="reg-repass" placeholder="Re-enter Password" class="w-full p-4 rounded-xl bg-black border border-zinc-800" required>
+                    <button type="submit" class="w-full bg-red-600 py-4 rounded-xl font-black uppercase hover:bg-red-700 transition">Create Account</button>
+                </form>
+                <p class="text-center mt-6 text-zinc-500 text-sm">Already have account? <button onclick="toggleAuthForms()" class="text-red-500 font-bold">Login</button></p>
+            </div>
+        </div>
     </div>
 
-    <div id="details-page" class="page p-6 md:p-20 bg-black min-h-screen text-white">
-        <button onclick="showHome()" class="text-red-500 mb-10 font-bold uppercase tracking-widest text-white">← BACK</button>
-        <div id="details-content" class="max-w-4xl mx-auto text-white"></div>
-        
-        <div class="max-w-4xl mx-auto mt-10 text-center">
-            <button id="like-btn" onclick="toggleLike()" class="bg-zinc-900 border border-zinc-700 px-8 py-3 rounded-full text-white font-bold hover:bg-red-600 transition flex items-center gap-3 mx-auto">
-                <span id="like-icon">🤍</span> <span id="like-count">0</span> Likes
-            </button>
+    <div id="main-content" class="hidden">
+        <nav class="p-5 flex justify-between items-center bg-zinc-900 sticky top-0 z-50 border-b border-zinc-800">
+            <h1 class="text-2xl font-bold text-red-500 cursor-pointer" onclick="showHome()">Vinay Writes</h1>
+            <div class="flex items-center gap-4">
+                <button onclick="logout()" class="text-zinc-500 text-xs font-bold uppercase tracking-widest hover:text-white">Logout</button>
+                <button id="view-toggle" onclick="toggleAdmin()" class="bg-zinc-800 px-4 py-2 rounded-full text-xs font-bold border border-zinc-700 uppercase">Admin Login</button>
+            </div>
+        </nav>
+
+        <div id="home-page" class="page active">
+            <header class="user-view-only pt-32 pb-20 px-6 text-center bg-gradient-to-b from-zinc-900 to-black">
+                <h2 id="welcome-user" class="text-red-500 font-bold tracking-[0.3em] mb-6 uppercase text-sm">Welcome Reader</h2>
+                <h1 class="text-6xl md:text-8xl font-black mb-8 leading-tight uppercase italic text-white">Stories That <br><span class="text-red-600">Hit Different.</span></h1>
+                
+                <div class="flex flex-col items-center gap-6 mt-10">
+                    <h3 class="text-2xl font-black uppercase tracking-widest italic text-zinc-400">Read My Stories</h3>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <button onclick="renderStories('Short Film Stories')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase">Short Film Stories</button>
+                        <button onclick="renderStories('Movie Scenes')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase">Movie Scenes</button>
+                        <button onclick="renderStories('Serial Content')" class="bg-zinc-800 border border-zinc-700 px-8 py-4 rounded-2xl font-black hover:bg-red-600 transition uppercase">Serial Content</button>
+                    </div>
+                </div>
+            </header>
+
+            <section id="portfolio" class="user-view-only py-20 px-6 bg-black">
+                <div id="story-grid" class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8"></div>
+            </section>
+
+            <footer class="user-view-only py-32 px-6 bg-orange-600">
+                <div class="max-w-5xl mx-auto text-center">
+                    <h3 class="text-5xl md:text-7xl font-black mb-8 italic uppercase text-white">Let's Collaborate.</h3>
+                    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                        <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black">
+                            <span class="text-orange-500 font-black uppercase text-[10px] mb-3 block">Email</span>
+                            <a href="mailto:kammarivinaykumar981@gmail.com" class="text-lg md:text-xl font-bold">kammarivinaykumar981@gmail.com</a>
+                        </div>
+                        <div class="p-10 bg-zinc-950 rounded-[3rem] border-2 border-black">
+                            <span class="text-green-500 font-black uppercase text-[10px] mb-3 block">WhatsApp</span>
+                            <a href="https://wa.me/917981587505" target="_blank" class="text-2xl md:text-3xl font-bold">+91 79815 87505</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+            <section class="admin-section py-20 px-6 bg-zinc-900 min-h-screen">
+                <div class="max-w-3xl mx-auto bg-black p-10 rounded-[3rem] border border-red-600 mb-20 shadow-2xl">
+                    <h2 id="form-title" class="text-3xl font-black text-red-500 mb-10 text-center uppercase italic text-white">Post New Content</h2>
+                    <form id="story-form" class="space-y-6">
+                        <input type="hidden" id="edit-index" value="-1">
+                        <input type="text" id="title" placeholder="Story Title" class="w-full p-5 rounded-2xl bg-zinc-900 border border-zinc-800 text-white outline-none font-bold" required>
+                        <select id="category" class="w-full p-5 rounded-2xl bg-zinc-900 border border-zinc-800 text-white outline-none font-bold" required>
+                            <option value="">Choose Category...</option>
+                            <option value="Short Film Stories">Short Film Stories</option>
+                            <option value="Movie Scenes">Movie Scenes</option>
+                            <option value="Serial Content">Serial Content</option>
+                        </select>
+                        <textarea id="fullStory" placeholder="Full script content..." class="w-full p-5 h-80 rounded-2xl bg-zinc-900 border border-zinc-800 text-white outline-none"></textarea>
+                        <button type="submit" id="submit-btn" class="w-full bg-red-600 py-5 rounded-2xl font-black text-xl hover:bg-red-700 transition uppercase">Publish Story</button>
+                    </form>
+                </div>
+                <div id="admin-lists-container" class="max-w-7xl mx-auto space-y-20"></div>
+            </section>
         </div>
 
-        <div class="max-w-4xl mx-auto mt-20 border-t border-zinc-900 pt-10 text-white">
-            <h3 class="text-2xl font-bold mb-8 text-red-500 italic uppercase text-white">Feedbacks</h3>
-            <div id="comment-list" class="space-y-6 mb-10 text-white"></div>
-            <div class="bg-zinc-900 p-8 rounded-[2rem]">
-                <textarea id="user-comment" placeholder="Write feedback here..." class="w-full p-5 rounded-2xl bg-zinc-800 border border-zinc-700 mb-4 h-32 outline-none text-white"></textarea>
-                <button onclick="postComment()" class="bg-red-600 px-12 py-4 rounded-2xl font-bold uppercase tracking-widest text-white">Post Feedback</button>
+        <div id="details-page" class="page p-6 md:p-20 bg-black min-h-screen">
+            <button onclick="showHome()" class="text-red-500 mb-10 font-bold uppercase tracking-widest text-white">← BACK</button>
+            <div id="details-content" class="max-w-4xl mx-auto text-white"></div>
+            <div class="max-w-4xl mx-auto mt-10 text-center">
+                <button id="like-btn" onclick="toggleLike()" class="bg-zinc-900 border border-zinc-700 px-8 py-3 rounded-full text-white font-bold hover:bg-red-600 transition flex items-center gap-3 mx-auto">
+                    <span id="like-icon">🤍</span> <span id="like-count">0</span> Likes
+                </button>
+            </div>
+            <div class="max-w-4xl mx-auto mt-20 border-t border-zinc-900 pt-10 text-white">
+                <h3 class="text-2xl font-bold mb-8 text-red-500 italic uppercase">Feedbacks</h3>
+                <div id="comment-list" class="space-y-6 mb-10"></div>
+                <div class="bg-zinc-900 p-8 rounded-[2rem]">
+                    <textarea id="user-comment" placeholder="Write feedback here..." class="w-full p-5 rounded-2xl bg-zinc-800 border border-zinc-700 mb-4 h-32 outline-none text-white"></textarea>
+                    <button onclick="postComment()" class="bg-red-600 px-12 py-4 rounded-2xl font-bold uppercase tracking-widest">Post Feedback</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
         let isAdmin = false;
+        let currentUser = null;
+        let registeredUsers = JSON.parse(localStorage.getItem('vinay_site_users')) || [];
         let stories = JSON.parse(localStorage.getItem('vinay_vfinal_v6')) || [];
         let comments = JSON.parse(localStorage.getItem('vinay_vfinal_comments')) || {};
         let currentStoryIndex = -1;
 
+        // AUTH LOGIC
+        function toggleAuthForms() {
+            document.getElementById('login-form-div').classList.toggle('hidden');
+            document.getElementById('register-form-div').classList.toggle('hidden');
+        }
+
+        document.getElementById('register-form').onsubmit = function(e) {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value;
+            const age = document.getElementById('reg-age').value;
+            const city = document.getElementById('reg-city').value;
+            const email = document.getElementById('reg-email').value;
+            const pass = document.getElementById('reg-pass').value;
+            const repass = document.getElementById('reg-repass').value;
+
+            if(pass !== repass) { alert("Passwords do not match!"); return; }
+            if(registeredUsers.find(u => u.name === name)) { alert("User already exists!"); return; }
+
+            const newUser = { name, age, city, email, pass };
+            registeredUsers.push(newUser);
+            localStorage.setItem('vinay_site_users', JSON.stringify(registeredUsers));
+            alert("Registration Successful! Please Login.");
+            toggleAuthForms();
+        };
+
+        document.getElementById('login-form').onsubmit = function(e) {
+            e.preventDefault();
+            const name = document.getElementById('login-name').value;
+            const pass = document.getElementById('login-pass').value;
+
+            const user = registeredUsers.find(u => u.name === name && u.pass === pass);
+            if(user) {
+                currentUser = user;
+                document.getElementById('auth-page').classList.add('hidden');
+                document.getElementById('main-content').classList.remove('hidden');
+                document.getElementById('welcome-user').innerText = `Welcome, ${user.name}`;
+                renderStories('None');
+            } else {
+                alert("Invalid Credentials!");
+            }
+        };
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('main-content').classList.add('hidden');
+            document.getElementById('auth-page').classList.remove('hidden');
+            document.getElementById('login-form').reset();
+        }
+
+        // PREVIOUS LOGIC (RETAINED)
         function toggleAdmin() {
             if(!isAdmin) {
                 if(prompt("Admin Password:") === "vinay123") {
@@ -161,13 +239,11 @@
             if(isAdmin) {
                 const cats = ['Short Film Stories', 'Movie Scenes', 'Serial Content'];
                 adminContainer.innerHTML = cats.map(cat => `
-                    <div class="mb-10 text-white">
-                        <h3 class="text-3xl font-black mb-8 border-b-4 border-red-600 pb-2 uppercase italic text-white">${cat}</h3>
-                        <div class="grid md:grid-cols-3 gap-8 text-white">${stories.filter(s => s.category === cat).map(s => createCard(s, stories.indexOf(s))).join('')}</div>
-                    </div>`).join('');
+                    <div class="mb-10"><h3 class="text-3xl font-black text-white mb-8 border-b-4 border-red-600 pb-2 uppercase italic">${cat}</h3>
+                    <div class="grid md:grid-cols-3 gap-8">${stories.filter(s => s.category === cat).map(s => createCard(s, stories.indexOf(s))).join('')}</div></div>`).join('');
             } else {
                 if(filter === 'None') { userGrid.innerHTML = ""; return; }
-                userGrid.innerHTML = stories.filter(s => !s.hidden && s.category === filter).map(s => createCard(s, stories.indexOf(s))).join('') || `<p class="col-span-full text-center text-zinc-500 py-10">No scripts here yet.</p>`;
+                userGrid.innerHTML = stories.filter(s => !s.hidden && s.category === filter).map(s => createCard(s, stories.indexOf(s))).join('') || `<p class="col-span-full text-center text-zinc-500 py-10">Select a category to begin.</p>`;
                 window.scrollTo({ top: userGrid.offsetTop - 100, behavior: 'smooth' });
             }
         }
@@ -183,10 +259,7 @@
             const s = stories[index];
             document.getElementById('home-page').classList.remove('active');
             document.getElementById('details-page').classList.add('active');
-            document.getElementById('details-content').innerHTML = `
-                <h1 id="current-story-title" class="text-5xl md:text-7xl font-black mb-12 uppercase italic underline decoration-red-600 decoration-8 text-white">${s.title}</h1>
-                <div class="text-zinc-300 text-xl leading-relaxed whitespace-pre-line font-medium text-white">${s.story}</div>
-            `;
+            document.getElementById('details-content').innerHTML = `<h1 id="current-story-title" class="text-5xl md:text-7xl font-black mb-12 uppercase italic underline decoration-red-600 decoration-8 text-white">${s.title}</h1><div class="text-zinc-300 text-xl leading-relaxed whitespace-pre-line font-medium text-white">${s.story}</div>`;
             document.getElementById('like-count').innerText = s.likes || 0;
             document.getElementById('like-icon').innerText = s.isLiked ? "❤️" : "🤍";
             loadComments(s.title);
@@ -205,22 +278,11 @@
         function loadComments(title) {
             const list = document.getElementById('comment-list');
             const sc = comments[title] || [];
-            list.innerHTML = sc.map((c, idx) => `
-                <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 flex justify-between items-start text-white">
-                    <div>
-                        <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest text-white">Feedback</span>
-                        <p class="text-zinc-200 mt-2 text-lg font-medium text-white">${c.text}</p>
-                    </div>
-                    ${isAdmin ? `<button onclick="removeComment('${title}', ${idx})" class="bg-red-900/50 text-red-500 px-3 py-1 rounded-full text-[10px] font-bold border border-red-500/30 uppercase text-white">Remove</button>` : ''}
-                </div>`).join('') || `<p class="text-zinc-600 uppercase text-xs text-white">No feedback yet.</p>`;
+            list.innerHTML = sc.map((c, idx) => `<div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 flex justify-between items-start text-white"><div><span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest">Feedback by ${c.user || 'Guest'}</span><p class="text-zinc-200 mt-2 text-lg font-medium">${c.text}</p></div>${isAdmin ? `<button onclick="removeComment('${title}', ${idx})" class="bg-red-900/50 text-red-500 px-3 py-1 rounded-full text-[10px] font-bold border border-red-500/30 uppercase text-white">Remove</button>` : ''}</div>`).join('') || `<p class="text-zinc-600 uppercase text-xs">No feedback yet.</p>`;
         }
 
         function removeComment(title, idx) {
-            if(confirm("Delete this feedback?")) {
-                comments[title].splice(idx, 1);
-                localStorage.setItem('vinay_vfinal_comments', JSON.stringify(comments));
-                loadComments(title);
-            }
+            if(confirm("Delete feedback?")) { comments[title].splice(idx, 1); localStorage.setItem('vinay_vfinal_comments', JSON.stringify(comments)); loadComments(title); }
         }
 
         function postComment() {
@@ -228,27 +290,20 @@
             const title = document.getElementById('current-story-title').innerText;
             if(!ti.value.trim()) return;
             if(!comments[title]) comments[title] = [];
-            comments[title].push({ text: ti.value, date: new Date().toLocaleDateString() });
+            comments[title].push({ text: ti.value, date: new Date().toLocaleDateString(), user: currentUser.name });
             localStorage.setItem('vinay_vfinal_comments', JSON.stringify(comments));
             loadComments(title);
             ti.value = "";
         }
 
         function showHome() { document.getElementById('details-page').classList.remove('active'); document.getElementById('home-page').classList.add('active'); renderStories('None'); }
-        function deleteStory(idx) { if(confirm("Delete this story?")) { stories.splice(idx, 1); localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories)); renderStories('All'); } }
+        function deleteStory(idx) { if(confirm("Delete story?")) { stories.splice(idx, 1); localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories)); renderStories('All'); } }
         function editStory(idx) { const s = stories[idx]; document.getElementById('edit-index').value = idx; document.getElementById('title').value = s.title; document.getElementById('category').value = s.category; document.getElementById('fullStory').value = s.story; window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
         document.getElementById('story-form').onsubmit = function(e) {
             e.preventDefault();
             const idx = parseInt(document.getElementById('edit-index').value);
-            const newData = { 
-                title: document.getElementById('title').value, 
-                category: document.getElementById('category').value, 
-                story: document.getElementById('fullStory').value, 
-                likes: idx !== -1 ? stories[idx].likes : 0, 
-                isLiked: idx !== -1 ? stories[idx].isLiked : false,
-                hidden: idx !== -1 ? stories[idx].hidden : false
-            };
+            const newData = { title: document.getElementById('title').value, category: document.getElementById('category').value, story: document.getElementById('fullStory').value, likes: idx !== -1 ? stories[idx].likes : 0, isLiked: idx !== -1 ? stories[idx].isLiked : false, hidden: idx !== -1 ? stories[idx].hidden : false };
             if(idx === -1) stories.push(newData); else stories[idx] = newData;
             localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories));
             document.getElementById('story-form').reset();
@@ -258,14 +313,7 @@
 
         window.addEventListener('blur', () => document.getElementById('security-overlay').style.display = 'flex');
         window.addEventListener('focus', () => document.getElementById('security-overlay').style.display = 'none');
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'PrintScreen' || e.keyCode === 44) {
-                document.getElementById('security-overlay').style.display = 'flex';
-                setTimeout(() => alert("Screenshots disabled."), 10);
-            }
-        });
-
-        renderStories('None');
+        document.addEventListener('keydown', (e) => { if (e.key === 'PrintScreen' || e.keyCode === 44) { document.getElementById('security-overlay').style.display = 'flex'; setTimeout(() => alert("Screenshots disabled."), 10); } });
     </script>
 </body>
 </html>
