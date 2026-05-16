@@ -234,7 +234,7 @@
             document.getElementById('auth-page').classList.remove('hidden');
         }
 
-        // HIDDEN SECRET ADMMIN ACCESSS (Ctrl + Shift + A)
+        // HIDDEN SECRET ADMIN ACCESS (Ctrl + Shift + A)
         window.addEventListener('keydown', function(e) {
             if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
                 e.preventDefault(); 
@@ -271,7 +271,7 @@
             renderStories(currentFilter);
         }
 
-        // RENDER STORIES (FIXED: Responsive Image Aspect Ratios & Background Fitting)
+        // RENDER STORIES
         function renderStories(filter = 'None') {
             currentFilter = filter; 
             const userGrid = document.getElementById('story-grid');
@@ -302,7 +302,7 @@
             }
         }
 
-        // DETAILS ENGINE (FIXED: Responsive Max Height View for Full Poster details)
+        // DETAILS ENGINE
         function showDetails(index) { 
             currentStoryIndex = index; 
             const s = stories[index]; 
@@ -354,6 +354,7 @@
         }
 
         function toggleHide(index) { stories[index].hidden = !stories[index].hidden; localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories)); renderStories(currentFilter); }
+        
         function toggleLike() { 
             const s = stories[currentStoryIndex]; 
             if(!s.likes) s.likes = 0; 
@@ -362,11 +363,21 @@
             document.getElementById('like-count').innerText = s.likes; 
             localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories)); 
         }
+
+        // COMMENT / FEEDBACK SYSTEMS
         function loadComments(title) { 
             const list = document.getElementById('comment-list'); 
             const sc = comments[title] || []; 
-            list.innerHTML = sc.map((c, idx) => `<div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 flex justify-between items-start text-white"><div><span class="text-[10px] uppercase text-zinc-500">Feedback by ${c.user || 'Guest'}</span><p class="mt-2 text-lg font-medium">${c.text}</p></div>${isAdmin ? `<button onclick="removeComment('${title}', ${idx})" class="bg-red-900 text-red-500 px-3 py-1 rounded-full text-[10px]">Remove</button>` : ''}</div>`).join('') || `<p class="text-zinc-600 uppercase text-[10px] font-bold tracking-widest">No feedback yet.</p>`; 
+            list.innerHTML = sc.map((c, idx) => `
+                <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 flex justify-between items-start text-white">
+                    <div>
+                        <span class="text-[10px] uppercase text-zinc-500">Feedback by ${c.user || 'Guest'}</span>
+                        <p class="mt-2 text-lg font-medium">${c.text}</p>
+                    </div>
+                    ${isAdmin ? `<button onclick="removeComment('${title.replace(/'/g, "\\'")}', ${idx})" class="bg-red-900 text-red-500 px-3 py-1 rounded-full text-[10px]">Remove</button>` : ''}
+                </div>`).join('') || `<p class="text-zinc-600 uppercase text-[10px] font-bold tracking-widest">No feedback yet.</p>`; 
         }
+
         function postComment() { 
             const ti = document.getElementById('user-comment'); 
             const title = stories[currentStoryIndex].title;
@@ -375,14 +386,38 @@
             const userName = currentUser ? currentUser.name : "Guest"; 
             comments[title].push({ text: ti.value, date: new Date().toLocaleDateString(), user: userName }); 
             localStorage.setItem('vinay_vfinal_comments', JSON.stringify(comments)); 
-            loadComments(title); ti.value = ""; 
+            loadComments(title); 
+            ti.value = ""; 
         }
+
+        function removeComment(title, commentIdx) {
+            if (confirm("Remove this feedback?")) {
+                if (comments[title]) {
+                    comments[title].splice(commentIdx, 1);
+                    localStorage.setItem('vinay_vfinal_comments', JSON.stringify(comments));
+                    loadComments(title);
+                }
+            }
+        }
+
         function showHome() { document.getElementById('details-page').classList.remove('active'); document.getElementById('home-page').classList.add('active'); renderStories(currentFilter); }
         function deleteStory(idx) { if(confirm("Delete story?")) { stories.splice(idx, 1); localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories)); renderStories(currentFilter); } }
 
+        // SCREEN PRIVACY HOOKS
         window.addEventListener('blur', () => document.getElementById('security-overlay').style.display = 'flex');
         window.addEventListener('focus', () => document.getElementById('security-overlay').style.display = 'none');
         document.addEventListener('keydown', (e) => { if (e.key === 'PrintScreen' || e.keyCode === 44) { document.getElementById('security-overlay').style.display = 'flex'; setTimeout(() => alert("Screenshots disabled."), 10); } });
+
+        // AUTOMATIC INSTAGRAM ADS GUEST LOGIN
+        window.addEventListener('DOMContentLoaded', (event) => {
+            if (!currentUser) {
+                currentUser = { name: "Ad Reader", age: "25", city: "Instagram", email: "guest@insta.com" };
+                document.getElementById('auth-page').classList.add('hidden');
+                document.getElementById('main-content').classList.remove('hidden');
+                document.getElementById('welcome-user').innerText = `Welcome, Filmmaker`;
+                renderStories('Short Film Stories');
+            }
+        });
     </script>
 </body>
 </html>
