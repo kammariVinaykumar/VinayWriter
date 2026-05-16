@@ -408,9 +408,12 @@
         window.addEventListener('focus', () => document.getElementById('security-overlay').style.display = 'none');
         document.addEventListener('keydown', (e) => { if (e.key === 'PrintScreen' || e.keyCode === 44) { document.getElementById('security-overlay').style.display = 'flex'; setTimeout(() => alert("Screenshots disabled."), 10); } });
 
-        // AUTOMATIC INSTAGRAM ADS GUEST LOGIN
+        // CONDITION: ONLY AUTO-LOGIN IF VISITING FROM INSTAGRAM AD LINK
         window.addEventListener('DOMContentLoaded', (event) => {
-            if (!currentUser) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const source = urlParams.get('ref'); // URL లో ref=instagram ఉందో లేదో చెక్ చేస్తుంది
+
+            if (source === 'instagram' && !currentUser) {
                 currentUser = { name: "Ad Reader", age: "25", city: "Instagram", email: "guest@insta.com" };
                 document.getElementById('auth-page').classList.add('hidden');
                 document.getElementById('main-content').classList.remove('hidden');
