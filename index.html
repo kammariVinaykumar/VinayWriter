@@ -140,10 +140,13 @@
         <div id="details-page" class="page p-6 md:p-20 bg-black min-h-screen">
             <button onclick="showHome()" class="text-red-500 mb-10 font-bold uppercase tracking-widest text-white">← BACK</button>
             <div id="details-content" class="max-w-4xl mx-auto text-white"></div>
-            <div class="max-w-4xl mx-auto mt-10 text-center">
-                <button id="like-btn" onclick="toggleLike()" class="bg-zinc-900 border border-zinc-700 px-8 py-3 rounded-full text-white font-bold hover:bg-red-600 transition flex items-center gap-3 mx-auto">
+            <div class="max-w-4xl mx-auto mt-10 text-center flex justify-center gap-6">
+                <button id="like-btn" onclick="toggleLike()" class="bg-zinc-900 border border-zinc-700 px-8 py-3 rounded-full text-white font-bold hover:bg-red-600 transition flex items-center gap-3">
                     <span id="like-icon">🤍</span> <span id="like-count">0</span> Likes
                 </button>
+                <div class="bg-zinc-900 border border-zinc-800 px-8 py-3 rounded-full text-zinc-400 font-bold flex items-center gap-3">
+                    <span>👁️</span> <span id="view-count">0</span> Reads
+                </div>
             </div>
             <div class="max-w-4xl mx-auto mt-20 border-t border-zinc-900 pt-10 text-white">
                 <h3 class="text-2xl font-bold mb-8 text-red-500 italic uppercase">Feedbacks</h3>
@@ -284,7 +287,10 @@
                     </div>
                     <div class="p-8 flex-grow flex flex-col justify-between">
                         <div>
-                            <div class="absolute top-4 left-4 text-[10px] bg-red-600 px-2 py-1 rounded-full font-bold z-10">❤️ ${s.likes || 0}</div>
+                            <div class="absolute top-4 left-4 flex gap-2 z-10">
+                                <div class="text-[10px] bg-red-600 px-2 py-1 rounded-full font-bold">❤️ ${s.likes || 0}</div>
+                                <div class="text-[10px] bg-zinc-800 px-2 py-1 rounded-full font-bold text-zinc-300">👁️ ${s.views || 0}</div>
+                            </div>
                             ${isAdmin ? `<div class="absolute top-4 right-4 flex gap-2 z-10"><button onclick="toggleHide(${idx})" class="bg-yellow-600 p-1 px-2 rounded-full text-[8px] uppercase">Hide</button><button onclick="editStory(${idx})" class="bg-blue-600 p-1 px-2 rounded-full text-[8px] uppercase">Edit</button><button onclick="deleteStory(${idx})" class="bg-red-600 p-1 px-2 rounded-full text-[8px] uppercase">Del</button></div>` : ''}
                             <span class="text-red-500 text-[10px] font-black uppercase tracking-widest mb-2 block">${s.category}</span>
                             <h3 class="text-2xl font-black mb-6 uppercase italic leading-tight text-white">${s.title}</h3>
@@ -306,14 +312,23 @@
         function showDetails(index) { 
             currentStoryIndex = index; 
             const s = stories[index]; 
+
+            // వ్యూస్ కౌంట్ పెంచే లాజిక్ (Increment Views)
+            if(!s.views) s.views = 0;
+            s.views++;
+            localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories));
+
             document.getElementById('home-page').classList.remove('active'); 
             document.getElementById('details-page').classList.add('active'); 
             document.getElementById('details-content').innerHTML = `
                 ${s.image ? `<div class="w-full max-h-[75vh] rounded-[2rem] overflow-hidden mb-10 border border-zinc-800 shadow-2xl bg-black flex items-center justify-center"><img src="${s.image}" class="max-w-full max-h-[75vh] object-contain"></div>` : ''}
                 <h1 class="text-5xl md:text-7xl font-black mb-8 uppercase italic underline decoration-red-600 text-white">${s.title}</h1>
                 <div class="text-zinc-300 text-xl leading-relaxed whitespace-pre-line font-medium">${s.story}</div>`; 
+            
             document.getElementById('like-count').innerText = s.likes || 0; 
             document.getElementById('like-icon').innerText = s.isLiked ? "❤️" : "🤍"; 
+            document.getElementById('view-count').innerText = s.views; // వ్యూస్ కౌంట్ స్క్రీన్ మీద అప్‌డేట్ చేస్తుంది
+
             loadComments(s.title); 
             window.scrollTo(0,0); 
         }
@@ -327,6 +342,7 @@
                 category: document.getElementById('category').value, 
                 story: document.getElementById('fullStory').value, 
                 likes: idx !== -1 ? stories[idx].likes : 0, 
+                views: idx !== -1 ? stories[idx].views : 0, // పాత వ్యూస్ డేటా పోకుండా సేవ్ చేస్తుంది
                 isLiked: idx !== -1 ? stories[idx].isLiked : false, 
                 hidden: idx !== -1 ? stories[idx].hidden : false 
             }; 
@@ -411,7 +427,7 @@
         // CONDITION: ONLY AUTO-LOGIN IF VISITING FROM INSTAGRAM AD LINK
         window.addEventListener('DOMContentLoaded', (event) => {
             const urlParams = new URLSearchParams(window.location.search);
-            const source = urlParams.get('ref'); // URL లో ref=instagram ఉందో లేదో చెక్ చేస్తుంది
+            const source = urlParams.get('ref'); 
 
             if (source === 'instagram' && !currentUser) {
                 currentUser = { name: "Ad Reader", age: "25", city: "Instagram", email: "guest@insta.com" };
