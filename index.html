@@ -109,18 +109,10 @@
                         <input type="hidden" id="edit-index" value="-1">
                         <input type="text" id="title" placeholder="Story Title" class="w-full p-4 rounded-xl bg-zinc-900 border border-zinc-800 text-white outline-none font-bold" required>
                         
-                        <div class="bg-zinc-900 border-2 border-dashed border-zinc-800 p-6 rounded-xl text-center">
-                            <label class="cursor-pointer block">
-                                <span class="text-zinc-500 uppercase font-black text-xs block mb-2">Upload Story Poster</span>
-                                <input type="file" id="image-file" accept="image/*" class="hidden" onchange="handleImagePreview(this)">
-                                <div id="preview-container" class="mt-2 hidden">
-                                    <img id="img-preview" src="" class="max-h-40 mx-auto rounded-lg mb-2">
-                                    <button type="button" onclick="removeImage()" class="text-red-500 text-[10px] font-bold uppercase">Remove Image</button>
-                                </div>
-                                <div id="upload-prompt" class="py-2 text-zinc-600">
-                                    <span class="text-2xl">🖼️</span><br>Click to Select Poster
-                                </div>
-                            </label>
+                        <div>
+                            <label class="block text-zinc-500 text-xs font-black uppercase mb-1">Story Poster Image URL</label>
+                            <input type="url" id="image-url" placeholder="Paste ImgBB link here (e.g., https://i.ibb.co/image.jpg)" class="w-full p-4 rounded-xl bg-zinc-900 border border-zinc-800 text-white outline-none font-medium">
+                            <p class="text-[10px] text-zinc-600 mt-1 uppercase">Tip: Upload your poster on ImgBB.com and paste the 'Direct Link' here.</p>
                         </div>
                         
                         <select id="category" class="w-full p-4 rounded-xl bg-zinc-900 border border-zinc-800 text-white outline-none font-bold" required>
@@ -163,7 +155,6 @@
         let isAdmin = false;
         let currentUser = null;
         let currentFilter = 'Short Film Stories'; 
-        let currentImageBase64 = ""; 
         let registeredUsers = JSON.parse(localStorage.getItem('vinay_site_users')) || [];
         let comments = JSON.parse(localStorage.getItem('vinay_vfinal_comments')) || {};
         let currentStoryIndex = -1;
@@ -182,7 +173,7 @@
             {
                 title: "DREAMS (అంతర్లీన కలలు)",
                 category: "Short Film Stories",
-                story: `GENRE: Suspense / Comedy\nRUN TIME: Approx. 3-4 Minutes\n\nSCENE 1: EXT. CRICKET GROUND - DAY\nఒక లోకల్ గ్రౌండ్లో కొంతమంది అబ్బాయిలు кушымта ఆడుతున్నారు. బ్యాట్స్‌మన్ క్రీజులో చాలా ఫోకస్డ్‌గా ఉన్నాడు. బౌలర్ బాల్ వేయగా గట్టిగా కొడతాడు. బాల్ వెళ్లి గ్రౌండ్‌కి దూరంగా ఉన్న ఒక పాత పాడుబడిన BUNGALOW విンドウ అద్దాన్ని పగలగొడుతుంది. అందరూ షాక్ అయి చూస్తారు.\n\nSCENE 2: EXT. OLD BUNGALOW - DAY\nబ్యాట్స్‌మన్ ఒక్కడే ఆ భయంకరమైన బంగ్లా వైపు నడుచుకుంటూ వెళ్తాడు. ధైర్యం చేసి లోపలికి ఎంటర్ అవుతాడు.\n\nSCENE 3: INT. OLD BUNGALOW\nఆ లోపల అంతా చీకటి. పాత SOFA మీద బాల్ కనిపిస్తుంది. బాల్ తీసుకుని వెనక్కి తిరుగుతుండగా గోడ పైన ఒక భయంకరమైన DEVIL (దెయ్యం) పెయింటింగ్ చూస్తాడు. విపరీతమైన कुతూహలంతో దగ్గరికి వెళ్ళగా... జంప్ స్కేర్! ఆ దెయ్యం పెయింటింగ్ నుండి బయటకు దూకి అతనిపై ఎటాక్ చేస్తుంది.\n\nSCENE 4: INT. BEDROOM - NIGHT\nబ్యాట్స్‌మన్ భయంతో తన బెడ్ పైన ఉలిక్కిపడి లేస్తాడు. "హా... అదంతా జస్ట్ కల... థాంక్ గాడ్" అనుకుని రిలాక్స్ అవుతాడు. నిద్రమత్తులో బాత్రూమ్ కి వెళ్తాడు.\n\nSCENE 5: INT. BATHROOM - NIGHT\nయూరిన్ పాస్ చేస్తూ రిలాక్స్ అవుతుండగా ఒక DOSMA వచ్చి చెంపపై వాలుతుంది. నిద్రమత్తులో చెంపపై గట్టిగా కొట్టుకుంటాడు. (SFX: PHAT!)\n\nSCENE 6: INT. BEDROOM - MORNING (REALITY)\nచెంప మీద గట్టిగా దెబ్బ తగలడంతో అతను మళ్లీ ఉలిక్కిపడి నిజంగా నిద్ర లేస్తాడు! చెంప రుద్దుకుంటూ చూస్తే మార్నింగ్ అయింది. పక్కనే ఆఫీస్ కి రెడీ అవుతున్న కొలీగ్ ఇతని ప్యాంట్ వైపు చూస్తాడు. కలలో బాత్రూమ్ కి వెళ్లడం వల్ల మనోడు రియాలిటీలో బెడ్ మీదే ప్యాంట్ అంతా తడిపేసుకుంటాడు (Bed-wetting)!\n\nFADE OUT.`,
+                story: `GENRE: Mystery / Comedy\nRUN TIME: Approx. 3-4 Minutes\n\nSCENE 1: EXT. CRICKET GROUND - DAY\nఒక లోకల్ గ్రౌండ్లో కొంతమంది అబ్బాయిలు кушымта ఆడుతున్నారు. బ్యాట్స్‌మన్ క్రీజులో చాలా ఫోకస్డ్‌గా ఉన్నాడు. బౌలర్ బాల్ వేయగా గట్టిగా కొడతాడు. బాల్ వెళ్లి గ్రౌండ్‌కి దూరంగా ఉన్న ఒక పాత పాడుబడిన BUNGALOW విンドウ అద్దాన్ని పగలగొడుతుంది. అందరూ షాక్ అయి చూస్తారు.\n\nSCENE 2: EXT. OLD BUNGALOW - DAY\nబ్యాట్స్‌మన్ ఒక్కడే ఆ భయంకరమైన బంగ్లా వైపు నడుచుకుంటూ వెళ్తాడు. ధైర్యం చేసి లోపలికి ఎంటర్ అవుతాడు.\n\nSCENE 3: INT. OLD BUNGALOW\nఆ లోపల అంతా చీకటి. పాత SOFA మీద బాల్ కనిపిస్తుంది. బాల్ తీసుకుని వెనక్కి తిరుగుతుండగా గోడ పైన ఒక భయంకరమైన DEVIL (దెయ్యం) పెయింటింగ్ చూస్తాడు. విపరీతమైన कुతూహలంతో దగ్గరికి వెళ్ళగా... జంప్ స్కేర్! ఆ దెయ్యం పెయింటింగ్ నుండి బయటకు దూకి అతనిపై ఎటాక్ చేస్తుంది.\n\nSCENE 4: INT. BEDROOM - NIGHT\nబ్యాట్స్‌మన్ భయంతో తన బెడ్ పైన ఉలిక్కిపడి లేస్తాడు. "హా... అదంతా జస్ట్ కల... థాంక్ గాడ్" అనుకుని రిలాక్స్ అవుతాడు. నిద్రమత్తులో బాత్రూమ్ కి వెళ్తాడు.\n\nSCENE 5: INT. BATHROOM - NIGHT\nయూరిన్ పాస్ చేస్తూ రిలాక్స్ అవుతుండగా ఒక DOSMA వచ్చి చెంపపై వాలుతుంది. నిద్రమత్తులో చెంపపై గట్టిగా కొట్టుకుంటాడు. (SFX: PHAT!)\n\nSCENE 6: INT. BEDROOM - MORNING (REALITY)\nచెంప మీద గట్టిగా దెబ్బ తగలడంతో అతను మళ్లీ ఉలిక్కిపడి నిజంగా నిద్ర లేస్తాడు! చెంప రుద్దుకుంటూ చూస్తే మార్ниంగ్ అయింది. పక్కనే ఆఫీస్ కి రెడీ అవుతున్న కొలీగ్ ఇతని ప్యాంట్ వైపు చూస్తాడు. కలలో బాత్రూమ్ కి వెళ్లడం వల్ల మనోడు రియాలిటీలో బెడ్ మీదే ప్యాంట్ అంతా తడిపేసుకుంటాడు (Bed-wetting)!\n\nFADE OUT.`,
                 likes: 2,
                 views: 18,
                 isLiked: false,
@@ -191,11 +182,10 @@
             }
         ];
 
-        // NEW GLOBAL MEMORY DATABASE CONTROLLER
-        let stories = JSON.parse(localStorage.getItem('vinay_global_v1'));
+        let stories = JSON.parse(localStorage.getItem('vinay_cloud_v1'));
         if (!stories || stories.length === 0) {
             stories = defaultStories;
-            localStorage.setItem('vinay_global_v1', JSON.stringify(stories));
+            localStorage.setItem('vinay_cloud_v1', JSON.stringify(stories));
         }
 
         function handleNavAction() {
@@ -245,27 +235,6 @@
             renderStories(currentFilter);
         }
 
-        function handleImagePreview(input) {
-            const file = input.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    currentImageBase64 = e.target.result;
-                    document.getElementById('img-preview').src = currentImageBase64;
-                    document.getElementById('preview-container').classList.remove('hidden');
-                    document.getElementById('upload-prompt').classList.add('hidden');
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function removeImage() {
-            currentImageBase64 = "";
-            document.getElementById('image-file').value = "";
-            document.getElementById('preview-container').classList.add('hidden');
-            document.getElementById('upload-prompt').classList.remove('hidden');
-        }
-
         function renderStories(filter = 'Short Film Stories') {
             currentFilter = filter; 
             const userGrid = document.getElementById('story-grid');
@@ -313,15 +282,8 @@
             document.getElementById('title').value = s.title;
             document.getElementById('category').value = s.category;
             document.getElementById('fullStory').value = s.story;
+            document.getElementById('image-url').value = s.image || "";
             
-            if (s.image) {
-                currentImageBase64 = s.image;
-                document.getElementById('img-preview').src = s.image;
-                document.getElementById('preview-container').classList.remove('hidden');
-                document.getElementById('upload-prompt').classList.add('hidden');
-            } else {
-                removeImage();
-            }
             document.getElementById('form-title').innerText = "Edit Content Profile";
             document.getElementById('submit-btn').innerText = "Update & Save Story";
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -330,14 +292,14 @@
         window.deleteStory = function(index) {
             if (confirm("Are you sure you want to permanently delete this script?")) {
                 stories.splice(index, 1);
-                localStorage.setItem('vinay_global_v1', JSON.stringify(stories));
+                localStorage.setItem('vinay_cloud_v1', JSON.stringify(stories));
                 renderStories(currentFilter);
             }
         };
 
         window.toggleHide = function(index) {
             stories[index].hidden = !stories[index].hidden;
-            localStorage.setItem('vinay_global_v1', JSON.stringify(stories));
+            localStorage.setItem('vinay_cloud_v1', JSON.stringify(stories));
             renderStories(currentFilter);
         };
 
@@ -346,7 +308,7 @@
             const idx = parseInt(document.getElementById('edit-index').value); 
             const newData = { 
                 title: document.getElementById('title').value, 
-                image: currentImageBase64, // Saves the absolute uploaded image matrix text
+                image: document.getElementById('image-url').value.trim(), 
                 category: document.getElementById('category').value, 
                 story: document.getElementById('fullStory').value, 
                 likes: idx !== -1 ? stories[idx].likes : 0, 
@@ -359,9 +321,8 @@
             } else {
                 stories[idx] = newData;
             }
-            localStorage.setItem('vinay_global_v1', JSON.stringify(stories)); 
+            localStorage.setItem('vinay_cloud_v1', JSON.stringify(stories)); 
             document.getElementById('story-form').reset(); 
-            removeImage();
             document.getElementById('edit-index').value = "-1"; 
             document.getElementById('form-title').innerText = "Post New Content";
             document.getElementById('submit-btn').innerText = "Publish Story";
@@ -374,7 +335,7 @@
 
             if(!s.views) s.views = 0;
             s.views++;
-            localStorage.setItem('vinay_global_v1', JSON.stringify(stories));
+            localStorage.setItem('vinay_cloud_v1', JSON.stringify(stories));
 
             document.getElementById('home-page').classList.remove('active'); 
             document.getElementById('details-page').classList.add('active'); 
@@ -397,7 +358,7 @@
             if(!s.isLiked) { s.likes++; s.isLiked = true; document.getElementById('like-icon').innerText = "❤️"; } 
             else { s.likes--; s.isLiked = false; document.getElementById('like-icon').innerText = "🤍"; } 
             document.getElementById('like-count').innerText = s.likes; 
-            localStorage.setItem('vinay_global_v1', JSON.stringify(stories)); 
+            localStorage.setItem('vinay_cloud_v1', JSON.stringify(stories)); 
         }
 
         function loadComments(title) { 
