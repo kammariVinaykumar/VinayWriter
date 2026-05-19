@@ -162,22 +162,23 @@
     <script>
         let isAdmin = false;
         let currentUser = null;
-        let currentFilter = 'Short Film Stories'; // Default filter set to let short films render instantly
+        let currentFilter = 'Short Film Stories'; 
         let currentImageBase64 = ""; 
         let registeredUsers = JSON.parse(localStorage.getItem('vinay_site_users')) || [];
         let comments = JSON.parse(localStorage.getItem('vinay_vfinal_comments')) || {};
         let currentStoryIndex = -1;
 
+        // FIXED CLOUD COMPATIBLE STRUCTURE FOR GLOBALLY VISIBLE IMAGES
         let defaultStories = [
             {
                 title: "THE PLACE LOOP",
                 category: "Short Film Stories",
-                story: `GENRE: Mystery / Psychological Thriller\nCHARACTER: ARJUN (Professional Wildlife Photographer)\n\nSCENE 1: THE ARRIVAL (8:00 AM)\n[SHOT 1.1: DRONE SHOT - EXTREME WIDE]\nఆకాశం నుండి చూస్తే ఆ అడవి ఒక అనంతమైన పచ్చని సముద్రంలా కనిపిస్తోంది. ఆ చెట్ల మధ్య నుండి వెళ్తున్న ఒక చిన్న మట్టిబాటలో అర్జున్ జీపు మెల్లిగా వోంది.\n\n[SHOT 1.2: THE LONG-TAKE ENTRY]\n- STEP 1: జీపు ఆగగానే అర్జున్ బూట్లు ఎండుటాకుల మీద పడతాయి. ఆకులు నలిగే సౌండ్ స్పష్టంగా రావాలి.\n- STEP 2: కెమెరా మెల్లిగా కింద నుండి పైకి లేస్తుంది. అర్జున్ ముఖం రివీల్ అవుతుంది.\n- STEP 3: అర్జున్ జీపు వెనుక నుండి తన కెమెరా బ్యాగ్ మరియు కెమెరాను తీసుకుంటాడు.\n- STEP 4: అర్జున్ అడవి లోపలికి నడుస్తుంటే కెమెరా అతని వెనుక నుండి ఫాలో అవుతుంది.\n\nSCENE 2: THE DANGER ZONE\n[SHOT 2.1: THE WARNING BOARD]\nఅర్జున్ ఒక పాత ఇనుప కంచె దగ్గర ఆగిపోతాడు. కంచె మీద ఉన్న ”DANGER ZONE - DO NOT ENTER” బోర్డు మీద ఫోకస్. అర్జున్ మెల్లిగా కంచె కింద నుండి వంగి అవతలి వైపుకు వెళ్తాడు.\n\n[SHOT 2.2: THE MYSTERIOUS TREE]\nఅర్జున్ ముందు మెలికలు తిరిగిన కొమ్మలతో ఒక పెద్ద వింతైన చెట్టు ఉంటుంది. అతను ఆ చెట్టును తాకి కొన్ని ఫోటోలు తీసుకుంటాడు.\n\nSCENE 3: THE LOOP (4:00 PM - 5:00 PM)\n[SHOT 3.1: THE PANIC RUN]\nఅర్జున్ తిరిగి వెళ్లాలని నడక ప్రారంభిస్తాడు, కానీ ఆగిపోతాడు. కెమెరా అతని ముఖం నుండి మళ్ళీ అదే వింతైన చెట్టుకు మారుతుంది. అర్జున్ పిచ్చివాడిలా అడవిలో అన్ని వైపులకి పరుగులు తీస్తాడు.\n\n[SHOT 3.3: THE SCREAM]\nఅర్జున్ మళ్ళీ ఆ చెట్టు దగ్గరికే వచ్చి, ఇక తట్టుకోలేక మోకాళ్ళ మీద కూలబడి ఆకాశం వైపు చూస్తూ గట్టిగా అరుస్తాడు. కెమెరా చాలా వేగంగా వెనక్కి వెళ్తుంది (FAST ZOOM OUT).\n\nSCENE 4: THE CLIMAX AND ESCAPE\n[SHOT 4.1: THE VIEW FINDER REALIZATION]\nఅర్జున్ కళ్ల ముందే ఒక పక్షి ఎగురుతుంది. అతను కెమెరా వ్యూఫైండర్ లో చూస్తాడు. ఆకాశం ఖాళీగా ఉంది.\n\nARJUN\n(Whispering) నా కళ్లు నన్ను మోసం చేస్తున్నాయి... కెమెరా మాత్రమే నిజాన్ని చూపిస్తోంది.\n\n[SHOT 4.2: THE DETERMINED WALK]\nఅర్జున్ వ్యూఫైండర్ నుండి చూపు తిప్పకుండా రోబోలా నడుస్తాడు. వ్యూఫైండర్ కంటికి అద్దుకునే ఉంటుంది.\n\nSCENE 5: THE FINAL EXIT\n[SHOT 5.1: THE DISCOVERY]\nఅర్జున్ అడవి లోంచి బయటకు వచ్చి, దూరం నుండి తన జీపును చూస్తాడు. నమ్మలేనట్లు చూస్తాడు. జీపు ఎక్కి వేగంగా వెళ్ళిపోతాడు.`,
+                story: `GENRE: Mystery / Psychological Thriller\nCHARACTER: ARJUN (Professional Wildlife Photographer)\n\nSCENE 1: THE ARRIVAL (8:00 AM)\n[SHOT 1.1: DRONE SHOT - EXTREME WIDE]\nఆకాశం నుండి చూస్తే ఆ అడవి ఒక అనంతమైన పచ్చని సముద్రంలా కనిపిస్తోంది. ఆ చెట్ల మధ్య నుండి వెళ్తున్న ఒక చిన్న మట్టిబాటలో అర్జున్ జీపు మెల్లిగా వస్తోంది.\n\n[SHOT 1.2: THE LONG-TAKE ENTRY]\n- STEP 1: జీపు ఆగగానే అర్జున్ బూట్లు ఎండుటాకుల మీద పడతాయి. ఆకులు నలిగే సౌండ్ స్పష్టంగా రావాలి.\n- STEP 2: కెమెరా మెల్లిగా కింద నుండి పైకి లేస్తుంది. అర్జున్ ముఖం రివీల్ అవుతుంది.\n- STEP 3: అర్జున్ జీపు వెనుక నుండి తన కెమెరా బ్యాగ్ మరియు కెమెరాను తీసుకుంటాడు.\n- STEP 4: అర్జున్ అడవి లోపలికి నడుస్తుంటే కెమెరా అతని వెనుక నుండి ఫాలో అవుతుంది.\n\nSCENE 2: THE DANGER ZONE\n[SHOT 2.1: THE WARNING BOARD]\nఅర్జున్ ఒక పాత ఇనుప కంచె దగ్గర ఆగిపోతాడు. కంచె మీద ఉన్న ”DANGER ZONE - DO NOT ENTER” బోర్డు మీద ఫోకస్. అర్జున్ మెల్లిగా కంచె కింద నుండి వంగి అవతలి వైపుకు వెళ్తాడు.\n\n[SHOT 2.2: THE MYSTERIOUS TREE]\nఅర్జున్ ముందు మెలికలు తిరిగిన కొమ్మలతో ఒక పెద్ద వింతైన చెట్టు ఉంటుంది. అతను ఆ చెట్టును తాకి కొన్ని ఫోటోలు తీసుకుంటాడు.\n\nSCENE 3: THE LOOP (4:00 PM - 5:00 PM)\n[SHOT 3.1: THE PANIC RUN]\nఅర్జున్ తిరిగి వెళ్లాలని నడక ప్రారంభిస్తాడు, కానీ ఆగిపోతాడు. కెమెరా అతని ముఖం నుండి మళ్ళీ అదే వింతైన చెట్టుకు మారుతుంది. అర్జున్ పిచ్చివాడిలా అడవిలో అన్ని వైపులకి పరుగులు తీస్తాడు.\n\n[SHOT 3.3: THE SCREAM]\nఅర్జున్ మళ్ళీ ఆ చెట్టు దగ్గరికే వచ్చి, ఇక తట్టుకోలేక మోకాళ్ళ మీద కూలబడి ఆకాశం వైపు చూస్తూ గట్టిగా అరుస్తాడు. కెమెరా చాలా వేగంగా వెనక్కి వెళ్తుంది (FAST ZOOM OUT).\n\nSCENE 4: THE CLIMAX AND ESCAPE\n[SHOT 4.1: THE VIEW FINDER REALIZATION]\nఅర్జున్ కళ్ల ముందే ఒక పక్షి ఎగురుతుంది. అతను కెమెరా వ్యూఫైండర్ లో చూస్తాడు. ఆకాశం ఖాళీగా ఉంది.\n\nARJUN\n(Whispering) నా కళ్లు నన్ను మోసం చేస్తున్నాయి... కెమెరా మాత్రమే నిజాన్ని చూపిస్తోంది.\n\n[SHOT 4.2: THE DETERMINED WALK]\nఅర్జున్ వ్యూఫైండర్ నుండి చూపు తిప్పకుండా రోబోలా నడుస్తాడు. వ్యూఫైండర్ కంటికి అద్దుకునే ఉంటుంది.\n\nSCENE 5: THE FINAL EXIT\n[SHOT 5.1: THE DISCOVERY]\nఅర్జున్ అడవి లోంచి బయటకు వచ్చి, దూరం నుండి తన జీపును చూస్తాడు. నమ్మలేనట్లు చూస్తాడు. జీపు ఎక్కి వేగంగా వెళ్ళిపోతాడు.`,
                 likes: 4,
                 views: 24,
                 isLiked: false,
                 hidden: false,
-                image: ""
+                image: "https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=600&auto=format&fit=crop" // High quality fallbacks that render globally
             },
             {
                 title: "DREAMS (అంతర్లీన కలలు)",
@@ -187,14 +188,14 @@
                 views: 18,
                 isLiked: false,
                 hidden: false,
-                image: ""
+                image: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?q=80&w=600&auto=format&fit=crop"
             }
         ];
 
-        let stories = JSON.parse(localStorage.getItem('vinay_vfinal_v6'));
+        let stories = JSON.parse(localStorage.getItem('vinay_vfinal_v8'));
         if (!stories || stories.length === 0) {
             stories = defaultStories;
-            localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories));
+            localStorage.setItem('vinay_vfinal_v8', JSON.stringify(stories));
         }
 
         function handleNavAction() {
@@ -273,7 +274,7 @@
             const createCard = (s, idx) => `
                 <div class="bg-zinc-900 border border-zinc-800 rounded-[2rem] overflow-hidden relative flex flex-col h-full ${s.hidden ? 'opacity-40' : ''}">
                     <div class="w-full aspect-[16/10] bg-black border-b border-zinc-800 flex items-center justify-center overflow-hidden">
-                        ${s.image ? `<img src="${s.image}" class="w-full h-full object-contain bg-black">` : '<span class="text-zinc-800 text-4xl">🎬</span>'}
+                        ${s.image ? `<img src="${s.image}" class="w-full h-full object-cover bg-black">` : '<span class="text-zinc-800 text-4xl">🎬</span>'}
                     </div>
                     <div class="p-6 flex-grow flex flex-col justify-between">
                         <div>
@@ -306,7 +307,6 @@
             }
         }
 
-        // FIXED EDIT STORY FUNCTIONALITY WITH CORRECT INPUT ASSIGNMENTS
         window.editStory = function(index) {
             const s = stories[index];
             document.getElementById('edit-index').value = index;
@@ -327,19 +327,17 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
-        // FIXED DELETE STORY FUNCTIONALITY WITH AUTO RE-RENDER
         window.deleteStory = function(index) {
             if (confirm("Are you sure you want to permanently delete this script?")) {
                 stories.splice(index, 1);
-                localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories));
+                localStorage.setItem('vinay_vfinal_v8', JSON.stringify(stories));
                 renderStories(currentFilter);
             }
         };
 
-        // FIXED HIDE STORY FUNCTIONALITY
         window.toggleHide = function(index) {
             stories[index].hidden = !stories[index].hidden;
-            localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories));
+            localStorage.setItem('vinay_vfinal_v8', JSON.stringify(stories));
             renderStories(currentFilter);
         };
 
@@ -348,7 +346,7 @@
             const idx = parseInt(document.getElementById('edit-index').value); 
             const newData = { 
                 title: document.getElementById('title').value, 
-                image: currentImageBase64, 
+                image: currentImageBase64 || "https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=600&auto=format&fit=crop", 
                 category: document.getElementById('category').value, 
                 story: document.getElementById('fullStory').value, 
                 likes: idx !== -1 ? stories[idx].likes : 0, 
@@ -361,7 +359,7 @@
             } else {
                 stories[idx] = newData;
             }
-            localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories)); 
+            localStorage.setItem('vinay_vfinal_v8', JSON.stringify(stories)); 
             document.getElementById('story-form').reset(); 
             removeImage();
             document.getElementById('edit-index').value = "-1"; 
@@ -376,7 +374,7 @@
 
             if(!s.views) s.views = 0;
             s.views++;
-            localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories));
+            localStorage.setItem('vinay_vfinal_v8', JSON.stringify(stories));
 
             document.getElementById('home-page').classList.remove('active'); 
             document.getElementById('details-page').classList.add('active'); 
@@ -399,7 +397,7 @@
             if(!s.isLiked) { s.likes++; s.isLiked = true; document.getElementById('like-icon').innerText = "❤️"; } 
             else { s.likes--; s.isLiked = false; document.getElementById('like-icon').innerText = "🤍"; } 
             document.getElementById('like-count').innerText = s.likes; 
-            localStorage.setItem('vinay_vfinal_v6', JSON.stringify(stories)); 
+            localStorage.setItem('vinay_vfinal_v8', JSON.stringify(stories)); 
         }
 
         function loadComments(title) { 
